@@ -2,18 +2,13 @@ package moviedb;
 
 import moviedb.service.MovieDBService;
 
-/**
- *
- * @author enzmamar
- */
 public class Gui extends javax.swing.JFrame {
 
     private MovieDBService service;
-    
+
     public Gui() {
         initComponents();
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
