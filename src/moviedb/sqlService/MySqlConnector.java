@@ -12,7 +12,6 @@ public class MySqlConnector implements DbConnector {
 
     private Connection connection = null;
     private Statement statement = null;
-    private ResultSet resultSet = null;
 
     private String url;
     private String user;
@@ -56,24 +55,27 @@ public class MySqlConnector implements DbConnector {
 
     @Override
     public ResultSet executeQuery(String sql) throws SQLException {
+        connect();
+        
         if (connection == null) {
             System.out.println("No connection has been established!");
             return null;
         }
-        connect();
+        
         statement = connection.createStatement();
         return statement.executeQuery(sql);
     }
 
     @Override
     public void excecuteNonQuery(String dml) throws SQLException {
+              
+        connect();
+        
         if (connection == null) {
             System.out.println("No connection has been established!");
             return;
         }
         
-        connect();
-        statement = connection.createStatement();
         statement = connection.createStatement();
         statement.execute(dml);
         close();
@@ -88,10 +90,6 @@ public class MySqlConnector implements DbConnector {
             
             if(connection != null) {
                 connection.close();
-            }
-            
-            if (resultSet != null) {
-                resultSet.close();
             }
         } catch (SQLException e) {
 

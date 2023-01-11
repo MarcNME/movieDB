@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class DbAdapter {
     private final DbConnector connector;
 
@@ -92,7 +93,7 @@ public class DbAdapter {
                 Person tmp = new Person(
                         result.getInt("id"),
                         result.getString("name"),
-                        result.getDate("birthdate"));
+                        result.getDate("birthday"));
 
                 people.add(tmp);
             }
