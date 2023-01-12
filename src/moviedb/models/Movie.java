@@ -1,13 +1,11 @@
 package moviedb.models;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Movie {
 
-    private Map<Integer, String> contributors; //Contributors to the movie <personId, role>
+    private List<Contrbutor> contributors; //Contributors to the movie <personId, role>
     private List<Review> reviews;
     private int id;
     private String title;
@@ -19,13 +17,13 @@ public class Movie {
         this.id = -1;
         this.title = "notChanged";
         this.studioID = -1;
-        this.contributors = new HashMap<>();
+        this.contributors = new ArrayList<>();
         this.reviews = new ArrayList<>();
         this.description = "notChanged";
         this.imagePath = "notChanged";
     }
 
-    public Movie(int id, String title, int studioID, Map<Integer, String> contributors) {
+    public Movie(int id, String title, int studioID, List<Contrbutor> contributors) {
         this.id = id;
         this.title = title;
         this.studioID = studioID;
@@ -39,7 +37,7 @@ public class Movie {
         this.id = id;
         this.title = title;
         this.studioID = studioID;
-        this.contributors = new HashMap<>();
+        this.contributors = new ArrayList<>();
         this.reviews = new ArrayList<>();
         this.description = "";
         this.imagePath = "";
@@ -85,7 +83,7 @@ public class Movie {
         this.studioID = studioID;
     }
 
-    public Map<Integer, String> getContibutors() {
+    public List<Contrbutor> getContibutors() {
         return contributors;
     }
 
@@ -106,14 +104,28 @@ public class Movie {
         this.reviews.add(review);
     }
 
-    public void setContributors(Map<Integer, String> contributors) {
+    public void setContributors(List<Contrbutor> contributors) {
         this.contributors = contributors;
     }
     public void addContributor(int personID, String role) {
-        this.contributors.put(id, role);
+        this.contributors.add(new Contrbutor(personID, role));
     }
 
     public String getContributorRole(int personID) {
-        return this.contributors.get(id);
+        return this.contributors.stream()
+                .filter(contrbutor -> contrbutor.personID == personID)
+                .map(contrbutor -> contrbutor.role)
+                .findAny().orElse(null);
+    }
+
+    public List<Integer> getContributorsIDsByRole(String role) {
+        List<Integer> contributorIds = new ArrayList<>();
+        for (Contrbutor contrbutor : contributors) {
+            if (contrbutor.getRole().equals(role)) {
+                contributorIds.add(contrbutor.getPersonID());
+            }
+        }
+        
+        return contributorIds;
     }
 }
