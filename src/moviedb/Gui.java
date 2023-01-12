@@ -3,6 +3,8 @@ package moviedb;
 import moviedb.service.MovieDBService;
 
 public class Gui extends javax.swing.JFrame {
+    MovieDBService service;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public Gui(){
         initComponents();
