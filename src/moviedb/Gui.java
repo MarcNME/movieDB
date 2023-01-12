@@ -107,7 +107,6 @@ public class Gui extends javax.swing.JFrame {
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         NewEntryGui frame = new NewEntryGui();
         frame.setVisible(true);
-        dispose();
     }//GEN-LAST:event_btnNewActionPerformed
 
     public static void main(String args[]) {

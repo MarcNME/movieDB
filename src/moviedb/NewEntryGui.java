@@ -7,24 +7,32 @@ package moviedb;
 
 import javax.swing.*;
 
+import moviedb.models.Person;
+import  moviedb.service.MovieDBService;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author david.omoregie
  */
 public class NewEntryGui extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public NewEntryGui(){
-        initComponents();
-    }
+    private static MovieDBService service;
+    public NewEntryGui() { initComponents();
+        service = new MovieDBService();
+
+        service.refresh();}
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSafe;
+    private static javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel lblDescription;
     private javax.swing.JLabel lblDirector;
     private javax.swing.JLabel lblImagePath;
     private javax.swing.JLabel lblStudio;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JTextField txtDescription;
-    private javax.swing.JTextField txtDirector;
     private javax.swing.JTextField txtImagePath;
     private javax.swing.JTextField txtSudio;
     private javax.swing.JTextField txtTitle;
@@ -46,13 +54,13 @@ public class NewEntryGui extends javax.swing.JFrame {
         lblTitle = new javax.swing.JLabel();
         txtTitle = new javax.swing.JTextField();
         lblDirector = new javax.swing.JLabel();
-        txtDirector = new javax.swing.JTextField();
         lblStudio = new javax.swing.JLabel();
         txtSudio = new javax.swing.JTextField();
         lblDescription = new javax.swing.JLabel();
         txtDescription = new javax.swing.JTextField();
         btnSafe = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,14 +97,14 @@ public class NewEntryGui extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnCancel))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtDescription, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                         .addComponent(txtSudio, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblImagePath, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtImagePath, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(lblTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtTitle, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblDirector, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtDirector, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(lblDirector, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -113,8 +121,8 @@ public class NewEntryGui extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblDirector)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtDirector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
                 .addComponent(lblStudio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtSudio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -128,7 +136,6 @@ public class NewEntryGui extends javax.swing.JFrame {
                     .addComponent(btnCancel))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -138,10 +145,18 @@ public class NewEntryGui extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
+    private static void updatePersons()
+    {
+        List<Person> persons;
+        persons = service.getPersons();
+        jComboBox1.setModel(new DefaultComboBoxModel<String>(persons.toArray(new String[0])));
+    }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -168,8 +183,9 @@ public class NewEntryGui extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewEntryGui().setVisible(true);                       
+                new NewEntryGui().setVisible(true);
             }
         });
+        updatePersons();
     }
 }

@@ -34,6 +34,7 @@
                       <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
                       <Component id="txtDescription" alignment="0" pref="100" max="32767" attributes="0"/>
                       <Component id="txtSudio" alignment="0" max="32767" attributes="0"/>
                       <Component id="lblImagePath" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -41,7 +42,6 @@
                       <Component id="lblTitle" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
                       <Component id="txtTitle" alignment="0" max="32767" attributes="0"/>
                       <Component id="lblDirector" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtDirector" alignment="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="36" max="32767" attributes="0"/>
@@ -62,8 +62,8 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="lblDirector" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="txtDirector" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               <Component id="lblStudio" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="txtSudio" min="-2" max="-2" attributes="0"/>
@@ -101,8 +101,6 @@
         <Property name="text" type="java.lang.String" value="Regisseur"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtDirector">
-    </Component>
     <Component class="javax.swing.JLabel" name="lblStudio">
       <Properties>
         <Property name="text" type="java.lang.String" value="Studio"/>
@@ -129,6 +127,16 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="jComboBox1">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
