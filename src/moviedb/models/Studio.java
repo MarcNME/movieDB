@@ -1,8 +1,5 @@
 package moviedb.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Studio {
 
     private final int id;
@@ -16,5 +13,11 @@ public class Studio {
         this.name = name;
     }
 
-    public int getId() {return id;}
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

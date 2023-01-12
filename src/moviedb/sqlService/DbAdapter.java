@@ -8,17 +8,24 @@ import moviedb.models.Studio;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 public class DbAdapter {
     private final DbConnector connector;
 
     public DbAdapter() {
-        this.connector = new MySqlConnector("jdbc:mysql://localhost:3306/movieDB", "root", "");
+        this.connector = new MySqlConnector("jdbc:mysql://localhost:3306/moviedb", "root", "");
+    }
+
+    public void testConnection() {
+        connector.testConnection();
     }
 
     public List<Movie> getMovies() {
-        String sql = "SELECT * FROM moviedb.movie;";
+        String sql = "SELECT * FROM movies;";
         List<Movie> movies = new ArrayList<>();
 
         try {
@@ -43,7 +50,7 @@ public class DbAdapter {
     }
 
     public Movie getMovieByID(int id) {
-        String sql = "SELECT * FROM moviedb.movie WHERE id = " + id + ";";
+        String sql = "SELECT * FROM movies WHERE id = " + id + ";";
         Movie movie = null;
         try {
             ResultSet result = connector.executeQuery(sql);
@@ -65,9 +72,9 @@ public class DbAdapter {
     }
 
     public void addMovie(Movie movie) {
-        String dml = String.format("INSERT INTO `movie` " +
-                        "(`title`, `description`, `studio_id`)" +
-                        " VALUES ('%s', '%s', '%d');",
+        String dml = String.format("INSERT INTO `movies` " +
+                        "(`title`, `description`, `studio_id`) " +
+                        "VALUES ('%s', '%s', '%d');",
                 movie.getTitle(), movie.getDescription(), movie.getStudioID());
 
         try {
@@ -78,7 +85,7 @@ public class DbAdapter {
     }
 
     public List<Person> getPeople() {
-        String sql = "SELECT * FROM moviedb.person";
+        String sql = "SELECT * FROM persons";
         List<Person> people = new ArrayList<>();
         try {
             ResultSet result = connector.executeQuery(sql);
@@ -86,7 +93,7 @@ public class DbAdapter {
                 Person tmp = new Person(
                         result.getInt("id"),
                         result.getString("name"),
-                        result.getDate("birthdate"));
+                        result.getDate("birthday"));
 
                 people.add(tmp);
             }
@@ -99,8 +106,20 @@ public class DbAdapter {
         return people;
     }
 
-    public List<Review> getReviewsForMovie(int movieId) {
-        String sql = "SELECT * FROM moviedb.review WHERE movie_id = " + movieId + ";";
+    public void addPerson(Person person) {
+        String dml = String.format("INSERT INTO `persons` " +
+                "(name, birthday) " +
+                "VALUES (%s, %s)", person.getName(), person.getBirthdate());
+
+        try {
+            connector.excecuteNonQuery(dml);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public List<Review> getReviewsForMovieID(int movieId) {
+        String sql = "SELECT * FROM reviews WHERE movie_id = " + movieId + ";";
         List<Review> reviews = new ArrayList<>();
 
         try {
@@ -123,8 +142,21 @@ public class DbAdapter {
         return reviews;
     }
 
+    public void addReview(Review review, int movieID) {
+        String dml = String.format("INSERT INTO `reviews` " +
+                "(grade, userName, user_id) " +
+                "VALUES (%d, %s, %d);",
+                review.getGrade(), review.getUserName(), movieID);
+
+        try {
+            connector.excecuteNonQuery(dml);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public List<Studio> getStudios() {
-        String sql = "SELECT * FROM moviedb.studios;";
+        String sql = "SELECT * FROM studios;";
         List<Studio> studios = new ArrayList<>();
 
         try {
@@ -145,7 +177,7 @@ public class DbAdapter {
     }
 
     public Studio getStudioByID(int id) {
-        String sql = "SELECT * FROM moviedb.studio WHERE id = " + id + ";";
+        String sql = "SELECT * FROM studios WHERE id = " + id + ";";
         Studio studio = null;
         try {
             ResultSet result = connector.executeQuery(sql);
@@ -162,5 +194,49 @@ public class DbAdapter {
 
         connector.close();
         return studio;
+    }
+
+    public void addStudio(Studio studio) {
+        String dml = String.format("INSERT INTO `studios`" +
+                "(name) VALUES (%s)", studio.getName());
+
+        try {
+            connector.excecuteNonQuery(dml);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public Map<Integer, String> getContributorsByMovieID(int movieID) {
+        String sql = "SELECT * FROM `contributors` WHERE movie_id = " + movieID + ";";
+        Map<Integer, String> contributions = new HashMap<>();
+
+        try {
+            ResultSet result = connector.executeQuery(sql);
+
+            while (result.next()) {
+                contributions.put(
+                        result.getInt("person_id"),
+                        result.getString("role"));
+            }
+            result.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        connector.close();
+        return contributions;
+    }
+
+    public void addContribution(int movieID, int personID, String role) {
+        String dml = String.format("INSERT INTO `contributors` " +
+                "(person_id, movie_id, role)" +
+                " VALUES (%d, %d, %s)", movieID, personID, role);
+
+        try {
+            connector.excecuteNonQuery(dml);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

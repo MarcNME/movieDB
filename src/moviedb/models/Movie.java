@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class Movie {
 
-    private final Map<Integer, String> contributors; //Contributors to the movie <personId, role>
-    private final List<Review> reviews;
+    private Map<Integer, String> contributors; //Contributors to the movie <personId, role>
+    private List<Review> reviews;
     private int id;
     private String title;
     private String description;
@@ -99,10 +99,16 @@ public class Movie {
                 .findAny().orElse(null);
     }
 
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
     public void addReview(Review review) {
         this.reviews.add(review);
     }
 
+    public void setContributors(Map<Integer, String> contributors) {
+        this.contributors = contributors;
+    }
     public void addContributor(int personID, String role) {
         this.contributors.put(id, role);
     }
