@@ -10,8 +10,8 @@ import javax.swing.*;
 import moviedb.models.Person;
 import  moviedb.service.MovieDBService;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -19,11 +19,17 @@ import java.util.List;
  */
 public class NewEntryGui extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
+
+    private void refresh() {
+        service.refresh();
+        updatePersons();
+    }
+
     private static MovieDBService service;
     public NewEntryGui() { initComponents();
         service = new MovieDBService();
-
-        service.refresh();}
+        refresh();
+        }
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSafe;
     private static javax.swing.JComboBox<String> jComboBox1;
@@ -147,9 +153,8 @@ public class NewEntryGui extends javax.swing.JFrame {
 
     private static void updatePersons()
     {
-        List<Person> persons;
-        persons = service.getPersons();
-        jComboBox1.setModel(new DefaultComboBoxModel<String>(persons.toArray(new String[0])));
+        List<String> names = service.getPersons().stream().map(person -> person.getName()).collect(Collectors.toList());
+        jComboBox1.setModel(new DefaultComboBoxModel<>(names.toArray(new String[0])));
     }
 
     /**
@@ -186,6 +191,5 @@ public class NewEntryGui extends javax.swing.JFrame {
                 new NewEntryGui().setVisible(true);
             }
         });
-        updatePersons();
     }
 }
