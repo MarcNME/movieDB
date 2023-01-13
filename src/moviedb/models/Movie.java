@@ -1,6 +1,8 @@
 package moviedb.models;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
 public class Movie {
@@ -83,12 +85,16 @@ public class Movie {
         this.studioID = studioID;
     }
 
-    public List<Contrbutor> getContibutors() {
+    public List<Contrbutor> getContributors() {
         return contributors;
     }
 
     public List<Review> getReviews() {
         return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
     public Review getReviewByID(int id) {
@@ -97,16 +103,21 @@ public class Movie {
                 .findAny().orElse(null);
     }
 
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
-    }
     public void addReview(Review review) {
         this.reviews.add(review);
+    }
+
+    public double getAverageRating() {
+        List<Integer> grades =  reviews.stream().map(Review::getGrade).collect(Collectors.toList());
+        OptionalDouble average = grades.stream().mapToDouble(a -> a).average();
+
+        return average.isPresent() ? average.getAsDouble() : 0;
     }
 
     public void setContributors(List<Contrbutor> contributors) {
         this.contributors = contributors;
     }
+
     public void addContributor(int personID, String role) {
         this.contributors.add(new Contrbutor(personID, role));
     }
@@ -125,7 +136,7 @@ public class Movie {
                 contributorIds.add(contrbutor.getPersonID());
             }
         }
-        
+
         return contributorIds;
     }
 }

@@ -1,14 +1,30 @@
 package moviedb;
 
-import moviedb.models.Review;
+import moviedb.renderer.NumberRenderer;
 import moviedb.service.MovieDBService;
 
+import java.text.NumberFormat;
+
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
-public class Gui extends javax.swing.JFrame {
-
+public final class Gui extends javax.swing.JFrame {
+    
     MovieDBService service;
     DefaultTableModel tableModel;
+    
+    public Gui() {
+        initComponents();
+        
+        service = new MovieDBService();
+        String[] col = {"Title", "Regisseur", "Studio", "Rating"};
+        tableModel = new DefaultTableModel(col, 0);
+        tblMovies.setModel(tableModel);
+        setTableProperties();
+        
+        refresh();
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChange;
     private javax.swing.JButton btnDelete;
@@ -17,17 +33,6 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblMovies;
-    public Gui() {
-        initComponents();
-
-        service = new MovieDBService();
-        String[] col = {"Title", "Regisseur", "Studio", "Rating"};
-        tableModel = new DefaultTableModel(col, 0);
-        tblMovies.setModel(tableModel);
-        setTableColumSize();
-
-        refresh();
-    }
 
     public static void main(String[] args) {
         /* Set the Nimbus look and feel */
@@ -61,33 +66,51 @@ public class Gui extends javax.swing.JFrame {
         });
 
     }
+    // End of variables declaration//GEN-END:variables
 
     private void printData() {
         service.getMovies().forEach(movie -> {
-            double rating = movie.getReviews().stream().mapToDouble(Review::getGrade).sum();
-
             int directorId = movie.getContributorsIDsByRole("Regisseur").stream().findAny().orElse(-1);
             String directorName = "";
             if (directorId > 0) {
                 directorName = service.getPersonByID(directorId).getName();
             }
-
-            Object[] objs = {movie.getTitle(), directorName, service.getStudioByID(movie.getStudioID()).getName(), rating};
+            
+            Object[] objs = {movie.getTitle(),
+                directorName, service.getStudioByID(movie.getStudioID()).getName(),
+                movie.getAverageRating()};
             tableModel.addRow(objs);
         });
     }
-
+    
     private void refresh() {
         service.refresh();
         printData();
     }
-    // End of variables declaration//GEN-END:variables
+    
+    public void setTableProperties() {
+        TableColumnModel columnModel = tblMovies.getColumnModel();
 
-    public void setTableColumSize() {
-        tblMovies.getColumnModel().getColumn(3).setMaxWidth(45);
-        tblMovies.getColumnModel().getColumn(3).setMinWidth(45);
+        //Column width for the Regisseur
+        columnModel.getColumn(1).setMaxWidth(120);
+        columnModel.getColumn(1).setMinWidth(120);
+
+        //Column width for the Studio
+        columnModel.getColumn(2).setMaxWidth(50);
+        columnModel.getColumn(2).setMinWidth(50);
+
+        //Column Width for the rating
+        columnModel.getColumn(3).setMaxWidth(45);
+        columnModel.getColumn(3).setMinWidth(45);
+        
+        NumberFormat format = NumberFormat.getInstance();
+        format.setMaximumFractionDigits(2);
+        
+        columnModel.getColumn(3).setCellRenderer(new NumberRenderer(format));
+        
+        tblMovies.setEnabled(false); //Make table non editable
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -180,6 +203,5 @@ public class Gui extends javax.swing.JFrame {
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
         NewEntryGui frame = new NewEntryGui();
         frame.setVisible(true);
-        dispose();
     }//GEN-LAST:event_btnNewActionPerformed
 }
