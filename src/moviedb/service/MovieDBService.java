@@ -48,6 +48,10 @@ public class MovieDBService {
                 .filter(studio -> studio.getId() == id)
                 .findAny().orElse(null);
     }
+    
+    public void deleteMovie(int id) {
+        adapter.deleteMovie(id);
+    }
 
     public void refresh() {
         movies = adapter.getMovies();

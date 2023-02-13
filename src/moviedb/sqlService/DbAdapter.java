@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class DbAdapter {
@@ -76,6 +78,15 @@ public class DbAdapter {
             connector.excecuteNonQuery(dml);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+    }
+    
+    public void deleteMovie(int id) {
+        String dml = "DELETE FROM movies WHERE `movies`.`id` = " + id;
+        try {
+            connector.excecuteNonQuery(dml);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
     }
 

@@ -17,7 +17,7 @@ public final class Gui extends javax.swing.JFrame {
         initComponents();
         
         service = new MovieDBService();
-        String[] col = {"Title", "Regisseur", "Studio", "Rating"};
+        String[] col = {"ID" ,"Title", "Regisseur", "Studio", "Rating"};
         tableModel = new DefaultTableModel(col, 0);
         tblMovies.setModel(tableModel);
         setTableProperties();
@@ -33,6 +33,7 @@ public final class Gui extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblMovies;
+    // End of variables declaration//GEN-END:variables
 
     public static void main(String[] args) {
         /* Set the Nimbus look and feel */
@@ -66,9 +67,13 @@ public final class Gui extends javax.swing.JFrame {
         });
 
     }
-    // End of variables declaration//GEN-END:variables
 
     private void printData() {
+        int rowCount = tableModel.getRowCount();
+        for (int i = rowCount - 1; i >= 0; i--) {
+            tableModel.removeRow(i);
+        }
+                
         service.getMovies().forEach(movie -> {
             int directorId = movie.getContributorsIDsByRole("Regisseur").stream().findAny().orElse(-1);
             String directorName = "";
@@ -76,8 +81,10 @@ public final class Gui extends javax.swing.JFrame {
                 directorName = service.getPersonByID(directorId).getName();
             }
             
-            Object[] objs = {movie.getTitle(),
-                directorName, service.getStudioByID(movie.getStudioID()).getName(),
+            Object[] objs = {movie.getId(),
+                movie.getTitle(),
+                directorName,
+                service.getStudioByID(movie.getStudioID()).getName(),
                 movie.getAverageRating()};
             tableModel.addRow(objs);
         });
@@ -92,23 +99,21 @@ public final class Gui extends javax.swing.JFrame {
         TableColumnModel columnModel = tblMovies.getColumnModel();
 
         //Column width for the Regisseur
-        columnModel.getColumn(1).setMaxWidth(120);
-        columnModel.getColumn(1).setMinWidth(120);
+        columnModel.getColumn(2).setMaxWidth(120);
+        columnModel.getColumn(2).setMinWidth(120);
 
         //Column width for the Studio
-        columnModel.getColumn(2).setMaxWidth(50);
-        columnModel.getColumn(2).setMinWidth(50);
+        columnModel.getColumn(3).setMaxWidth(50);
+        columnModel.getColumn(3).setMinWidth(50);
 
         //Column Width for the rating
-        columnModel.getColumn(3).setMaxWidth(45);
-        columnModel.getColumn(3).setMinWidth(45);
+        columnModel.getColumn(4).setMaxWidth(45);
+        columnModel.getColumn(4).setMinWidth(45);
         
         NumberFormat format = NumberFormat.getInstance();
         format.setMaximumFractionDigits(2);
         
         columnModel.getColumn(3).setCellRenderer(new NumberRenderer(format));
-        
-        tblMovies.setEnabled(false); //Make table non editable
     }
     
     @SuppressWarnings("unchecked")
@@ -130,12 +135,12 @@ public final class Gui extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE)
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 103, Short.MAX_VALUE)
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 103, Short.MAX_VALUE)
         );
 
         btnNew.setText("Neuer Datensatz");
@@ -146,16 +151,26 @@ public final class Gui extends javax.swing.JFrame {
         });
 
         btnChange.setText("Datensatz ändern");
+        btnChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangeActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Datensatz löschen");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         tblMovies.setModel(new javax.swing.table.DefaultTableModel(
-                new Object[][]{
+            new Object [][] {
 
-                },
-                new String[]{
-                        "ID", "Title", "Rating"
-                }
+            },
+            new String [] {
+                "ID", "Title", "Rating"
+            }
         ));
         jScrollPane1.setViewportView(tblMovies);
         if (tblMovies.getColumnModel().getColumnCount() > 0) {
@@ -165,36 +180,36 @@ public final class Gui extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(btnDelete)
-                                                .addGap(44, 44, 44)
-                                                .addComponent(btnChange)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(btnNew))
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap())
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnDelete)
+                        .addGap(44, 44, 44)
+                        .addComponent(btnChange)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnNew))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(0, 0, Short.MAX_VALUE)
-                                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(btnNew)
-                                                        .addComponent(btnChange)
-                                                        .addComponent(btnDelete))
-                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnNew)
+                            .addComponent(btnChange)
+                            .addComponent(btnDelete))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -204,4 +219,19 @@ public final class Gui extends javax.swing.JFrame {
         NewEntryGui frame = new NewEntryGui();
         frame.setVisible(true);
     }//GEN-LAST:event_btnNewActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int selectedRow = tblMovies.getSelectedRow();
+        int id = (int)tableModel.getValueAt(selectedRow, 0);
+        
+        service.deleteMovie(id);
+        refresh();
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
+        int selectedRow = tblMovies.getSelectedRow();
+        int id = (int)tableModel.getValueAt(selectedRow, 0);
+        
+        //TODO create change GUI
+    }//GEN-LAST:event_btnChangeActionPerformed
 }
