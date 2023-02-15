@@ -8,7 +8,7 @@ import moviedb.sqlService.DbAdapter;
 import java.util.List;
 
 public class MovieDBService {
-    private DbAdapter adapter;
+    private final DbAdapter adapter;
 
     private List<Movie> movies;
     private List<Person> persons;
@@ -16,6 +16,7 @@ public class MovieDBService {
 
     public MovieDBService() {
         adapter = new DbAdapter();
+        adapter.testConnection();
     }
 
     public List<Movie> getMovies() {

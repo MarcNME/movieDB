@@ -10,8 +10,7 @@ public class Studio {
 
     List<Studio> studios = new ArrayList<>();
 
-    public Studio(int id, String name)
-    {
+    public Studio(int id, String name) {
         this.id = id;
         this.name = name;
     }

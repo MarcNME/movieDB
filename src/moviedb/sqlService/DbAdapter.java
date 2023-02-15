@@ -1,16 +1,11 @@
 package moviedb.sqlService;
 
-import moviedb.models.Movie;
-import moviedb.models.Person;
-import moviedb.models.Review;
-import moviedb.models.Studio;
+import moviedb.models.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class DbAdapter {
@@ -144,8 +139,8 @@ public class DbAdapter {
 
     public void addReview(Review review, int movieID) {
         String dml = String.format("INSERT INTO `reviews` " +
-                "(grade, userName, user_id) " +
-                "VALUES (%d, %s, %d);",
+                        "(grade, userName, user_id) " +
+                        "VALUES (%d, %s, %d);",
                 review.getGrade(), review.getUserName(), movieID);
 
         try {
@@ -207,17 +202,17 @@ public class DbAdapter {
         }
     }
 
-    public Map<Integer, String> getContributorsByMovieID(int movieID) {
+    public List<Contrbutor> getContributorsByMovieID(int movieID) {
         String sql = "SELECT * FROM `contributors` WHERE movie_id = " + movieID + ";";
-        Map<Integer, String> contributions = new HashMap<>();
+        List<Contrbutor> contributions = new ArrayList<>();
 
         try {
             ResultSet result = connector.executeQuery(sql);
 
             while (result.next()) {
-                contributions.put(
+                contributions.add(new Contrbutor(
                         result.getInt("person_id"),
-                        result.getString("role"));
+                        result.getString("role")));
             }
             result.close();
         } catch (SQLException e) {
