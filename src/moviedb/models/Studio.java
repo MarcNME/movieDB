@@ -14,6 +14,10 @@ public class Studio {
         this.id = id;
         this.name = name;
     }
+    public Studio(String name)
+    {
+        this.name = name;
+    }
 
     public int getId() {
         return id;
@@ -22,4 +26,11 @@ public class Studio {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+    
+    
 }

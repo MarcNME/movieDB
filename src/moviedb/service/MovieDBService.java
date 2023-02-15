@@ -29,6 +29,10 @@ public class MovieDBService {
                 .findAny().orElse(null);
     }
 
+    public void addMovie(Movie movie){
+        adapter.addMovie(movie);
+    }
+
     public List<Person> getPersons() {
         return persons;
     }
@@ -39,6 +43,10 @@ public class MovieDBService {
                 .findAny().orElse(null);
     }
 
+    public void addPerson(Person person) {
+        adapter.addPerson(person);
+    }
+
     public List<Studio> getStudios() {
         return studios;
     }
@@ -47,6 +55,10 @@ public class MovieDBService {
         return studios.stream()
                 .filter(studio -> studio.getId() == id)
                 .findAny().orElse(null);
+    }
+
+    public void addStudio(Studio studio){
+        adapter.addStudio(studio);
     }
 
     public void refresh() {

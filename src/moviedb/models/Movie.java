@@ -44,6 +44,12 @@ public class Movie {
         this.description = "";
         this.imagePath = "";
     }
+    public Movie(String title,int studioID, String imagePath, String description) {
+        this.title = title;
+        this.studioID = studioID;
+        this.description = description;
+        this.imagePath = imagePath;
+    }
 
     public int getId() {
         return id;

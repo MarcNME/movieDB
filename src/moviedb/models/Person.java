@@ -12,6 +12,10 @@ public class Person {
         this.name = name;
         this.birthdate = birthdate;
     }
+    public Person(String name, Date birthdate) {
+        this.name = name;
+        this.birthdate = birthdate;
+    }
 
     public int getId() {
         return id;
@@ -24,5 +28,9 @@ public class Person {
     public Date getBirthdate() {
         return birthdate;
     }
-    
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
