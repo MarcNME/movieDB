@@ -56,6 +56,10 @@ public class MovieDBService {
                 .filter(studio -> studio.getId() == id)
                 .findAny().orElse(null);
     }
+    
+    public void deleteMovie(int id) {
+        adapter.deleteMovie(id);
+    }
 
     public void addStudio(Studio studio){
         adapter.addStudio(studio);
