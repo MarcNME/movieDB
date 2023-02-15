@@ -53,11 +53,13 @@ public class DbAdapter {
             ResultSet result = connector.executeQuery(sql);
             if (result.next()) {
                 movie = new Movie();
-                movie.setId(result.getInt("id"));
+                movie.setId(id);
                 movie.setTitle(result.getString("title"));
                 movie.setDescription(result.getString("description"));
                 movie.setStudioID(result.getInt("studio_id"));
                 movie.setImagePath(result.getString("imagePath"));
+                
+                movie.setContributors(getContributorsByMovieID(id));
             }
             result.close();
         } catch (SQLException ex) {

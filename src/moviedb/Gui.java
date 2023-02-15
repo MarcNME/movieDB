@@ -4,6 +4,7 @@ import moviedb.renderer.NumberRenderer;
 import moviedb.service.MovieDBService;
 
 import java.text.NumberFormat;
+import javax.swing.JOptionPane;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -28,7 +29,9 @@ public final class Gui extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChange;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnNew;
+    private javax.swing.JButton btnNewMovie;
+    private javax.swing.JButton btnNewReview;
+    private javax.swing.JButton btnShowDetails;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -97,18 +100,22 @@ public final class Gui extends javax.swing.JFrame {
     
     public void setTableProperties() {
         TableColumnModel columnModel = tblMovies.getColumnModel();
+        
+        //Column width for the ID
+        columnModel.getColumn(0).setMaxWidth(35);
+        columnModel.getColumn(0).setMinWidth(35);
 
         //Column width for the Regisseur
         columnModel.getColumn(2).setMaxWidth(120);
         columnModel.getColumn(2).setMinWidth(120);
 
         //Column width for the Studio
-        columnModel.getColumn(3).setMaxWidth(50);
-        columnModel.getColumn(3).setMinWidth(50);
+        columnModel.getColumn(3).setMaxWidth(70);
+        columnModel.getColumn(3).setMinWidth(70);
 
         //Column Width for the rating
-        columnModel.getColumn(4).setMaxWidth(45);
-        columnModel.getColumn(4).setMinWidth(45);
+        columnModel.getColumn(4).setMaxWidth(55);
+        columnModel.getColumn(4).setMinWidth(55);
         
         NumberFormat format = NumberFormat.getInstance();
         format.setMaximumFractionDigits(2);
@@ -122,15 +129,18 @@ public final class Gui extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        btnNew = new javax.swing.JButton();
+        btnNewMovie = new javax.swing.JButton();
         btnChange = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMovies = new javax.swing.JTable();
+        btnShowDetails = new javax.swing.JButton();
+        btnNewReview = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Movie DB");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -143,10 +153,10 @@ public final class Gui extends javax.swing.JFrame {
             .addGap(0, 103, Short.MAX_VALUE)
         );
 
-        btnNew.setText("Neuer Datensatz");
-        btnNew.addActionListener(new java.awt.event.ActionListener() {
+        btnNewMovie.setText("Neuer Datensatz");
+        btnNewMovie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNewActionPerformed(evt);
+                btnNewMovieActionPerformed(evt);
             }
         });
 
@@ -177,51 +187,77 @@ public final class Gui extends javax.swing.JFrame {
             tblMovies.getColumnModel().getColumn(0).setMaxWidth(20);
         }
 
+        btnShowDetails.setText("Show details");
+        btnShowDetails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowDetailsActionPerformed(evt);
+            }
+        });
+
+        btnNewReview.setText("New Review");
+        btnNewReview.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewReviewActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnShowDetails)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnNewReview)
+                        .addGap(291, 291, 291)
                         .addComponent(btnDelete)
-                        .addGap(44, 44, 44)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnChange)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnNew))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnNewMovie))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnNew)
+                            .addComponent(btnDelete)
                             .addComponent(btnChange)
-                            .addComponent(btnDelete))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnNewMovie)
+                            .addComponent(btnShowDetails)
+                            .addComponent(btnNewReview))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+    private void btnNewMovieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewMovieActionPerformed
         NewEntryGui frame = new NewEntryGui();
         frame.setVisible(true);
-    }//GEN-LAST:event_btnNewActionPerformed
+    }//GEN-LAST:event_btnNewMovieActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int selectedRow = tblMovies.getSelectedRow();
+        if (selectedRow <= 0) {
+            JOptionPane.showMessageDialog(this, "Please select a Movie first");
+            return;
+        }
+        
         int id = (int)tableModel.getValueAt(selectedRow, 0);
         
         service.deleteMovie(id);
@@ -230,8 +266,33 @@ public final class Gui extends javax.swing.JFrame {
 
     private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
         int selectedRow = tblMovies.getSelectedRow();
+        if (selectedRow <= 0) {
+            JOptionPane.showMessageDialog(this, "Please select a Movie first");
+            return;
+        }
+        
         int id = (int)tableModel.getValueAt(selectedRow, 0);
         
         //TODO create change GUI
     }//GEN-LAST:event_btnChangeActionPerformed
+
+    private void btnShowDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowDetailsActionPerformed
+        int selectedRow = tblMovies.getSelectedRow();
+        if (selectedRow <= 0) {
+            JOptionPane.showMessageDialog(this, "Please select a Movie first");
+            return;
+        }
+        
+        int id = (int)tableModel.getValueAt(selectedRow, 0);
+    }//GEN-LAST:event_btnShowDetailsActionPerformed
+
+    private void btnNewReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewReviewActionPerformed
+        int selectedRow = tblMovies.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a Movie first");
+            return;
+        }
+        
+        int id = (int)tableModel.getValueAt(selectedRow, 0);
+    }//GEN-LAST:event_btnNewReviewActionPerformed
 }
