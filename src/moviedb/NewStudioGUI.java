@@ -6,20 +6,22 @@
 package moviedb;
 
 import moviedb.models.Studio;
-import moviedb.sqlService.DbAdapter;
 import  moviedb.service.MovieDBService;
 
 /**
  *
  * @author david.omoregie
  */
-public class NewStudioGUI extends javax.swing.JFrame {
+public class NewStudioGUI extends javax.swing.JDialog {
 
+    public MovieDBService service = new MovieDBService();
+    
     /**
      * Creates new form NewStudioGUI
-     */
-    public MovieDBService service = new MovieDBService();
-    public NewStudioGUI() {
+     * @param parent
+     */    
+    public NewStudioGUI(javax.swing.JDialog parent) {
+        super(parent, true);
         initComponents();
     }
 
@@ -97,42 +99,6 @@ public class NewStudioGUI extends javax.swing.JFrame {
     private void btnCancleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancleActionPerformed
        dispose();
     }//GEN-LAST:event_btnCancleActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewStudioGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewStudioGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewStudioGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewStudioGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NewStudioGUI().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancle;

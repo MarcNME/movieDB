@@ -227,9 +227,10 @@ public final class Gui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNewMovieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewMovieActionPerformed
-        NewEntryGui frame = new NewEntryGui();
+        NewEntryGui frame = new NewEntryGui(this);
         frame.setVisible(true);
-        refresh();
+        
+        refresh(); //Refresh after Dialog is finished
     }//GEN-LAST:event_btnNewMovieActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -253,9 +254,10 @@ public final class Gui extends javax.swing.JFrame {
         }
 
         int id = (int) tableModel.getValueAt(selectedRow, 0);
-        MovieDetailsGUI frame = new MovieDetailsGUI(id, service);
+        MovieDetailsGUI frame = new MovieDetailsGUI(id, service, this);
         frame.setVisible(true);
-        refresh();
+        
+        refresh(); //Refresh after Dialog is finished
     }//GEN-LAST:event_btnShowDetailsActionPerformed
 
     private void btnNewReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewReviewActionPerformed
@@ -266,7 +268,9 @@ public final class Gui extends javax.swing.JFrame {
         }
 
         int id = (int) tableModel.getValueAt(selectedRow, 0);
-        NewReviewGUI frame = new NewReviewGUI(id);
+        NewReviewGUI frame = new NewReviewGUI(id, service, this);
         frame.setVisible(true);
+        
+        refresh(); //Refresh after Dialog is finished
     }//GEN-LAST:event_btnNewReviewActionPerformed
 }

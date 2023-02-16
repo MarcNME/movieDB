@@ -16,12 +16,14 @@ import java.util.Date;
 /**
  * @author david.omoregie
  */
-public class NewPersonGUI extends javax.swing.JFrame {
+public class NewPersonGUI extends javax.swing.JDialog {
 
     /**
      * Creates new form NewPerson
+     * @param parent
      */
-    public NewPersonGUI() {
+    public NewPersonGUI(javax.swing.JDialog parent) {
+        super(parent, true);
         initComponents();
     }
 

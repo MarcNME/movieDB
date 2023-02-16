@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package moviedb;
 
 
@@ -17,8 +12,9 @@ import java.awt.*;
  * @author david.omoregie
  */
 
-public class NewEntryGui extends javax.swing.JFrame {
+public class NewEntryGui extends javax.swing.JDialog {
     private static MovieDBService service;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Person> boxPerson;
     private javax.swing.JComboBox<Studio> boxStudio;
@@ -34,12 +30,15 @@ public class NewEntryGui extends javax.swing.JFrame {
     private javax.swing.JTextField txtDescription;
     private javax.swing.JTextField txtImagePath;
     private javax.swing.JTextField txtTitle;
-    public NewEntryGui() {
+    // End of variables declaration//GEN-END:variables
+
+    public NewEntryGui(javax.swing.JFrame parent) {
+        super(parent, true);
+        
         initComponents();
         service = new MovieDBService();
         refresh();
     }
-    // End of variables declaration//GEN-END:variables
 
     private void refresh() {
         service.refresh();
@@ -197,12 +196,12 @@ public class NewEntryGui extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnNewPersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewPersonActionPerformed
-        NewPersonGUI frame = new NewPersonGUI();
+        NewPersonGUI frame = new NewPersonGUI(this);
         frame.setVisible(true);
     }//GEN-LAST:event_btnNewPersonActionPerformed
 
     private void btnNewStudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewStudioActionPerformed
-        NewStudioGUI frame = new NewStudioGUI();
+        NewStudioGUI frame = new NewStudioGUI(this);
         frame.setVisible(true);
     }//GEN-LAST:event_btnNewStudioActionPerformed
 

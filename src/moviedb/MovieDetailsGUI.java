@@ -10,7 +10,7 @@ import moviedb.service.MovieDBService;
  *
  * @author enzma
  */
-public class MovieDetailsGUI extends javax.swing.JFrame {
+public class MovieDetailsGUI extends javax.swing.JDialog {
 
     int id;
     Movie m;
@@ -22,8 +22,11 @@ public class MovieDetailsGUI extends javax.swing.JFrame {
      *
      * @param id
      * @param service
+     * @param parent
      */
-    public MovieDetailsGUI(int id, MovieDBService service) {
+    public MovieDetailsGUI(int id, MovieDBService service, javax.swing.JFrame parent) {
+        super(parent, true);
+        
         this.id = id;
         this.service = service;
 
@@ -221,11 +224,12 @@ public class MovieDetailsGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddReviewActionPerformed
-        // TODO add your handling code here:
+        NewReviewGUI frame = new NewReviewGUI(id, this);
+        frame.setVisible(true);
     }//GEN-LAST:event_btnAddReviewActionPerformed
 
     private void btnSafeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSafeActionPerformed
-        service.editMovie(id, txfTitle.getText(), txaDescription.getText().replace("\n", ""));
+        service.editMovie(id, txfTitle.getText(), txaDescription.getText().replace("\n", "")); 
         service.refresh();
         refresh();
     }//GEN-LAST:event_btnSafeActionPerformed
