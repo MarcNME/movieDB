@@ -27,7 +27,6 @@ public final class Gui extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnChange;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnNewMovie;
     private javax.swing.JButton btnNewReview;
@@ -130,7 +129,6 @@ public final class Gui extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         btnNewMovie = new javax.swing.JButton();
-        btnChange = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMovies = new javax.swing.JTable();
@@ -157,13 +155,6 @@ public final class Gui extends javax.swing.JFrame {
         btnNewMovie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNewMovieActionPerformed(evt);
-            }
-        });
-
-        btnChange.setText("Datensatz ändern");
-        btnChange.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnChangeActionPerformed(evt);
             }
         });
 
@@ -214,11 +205,9 @@ public final class Gui extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNewReview)
-                        .addGap(291, 291, 291)
+                        .addGap(509, 509, 509)
                         .addComponent(btnDelete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnChange)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnNewMovie))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
@@ -236,7 +225,6 @@ public final class Gui extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnDelete)
-                            .addComponent(btnChange)
                             .addComponent(btnNewMovie)
                             .addComponent(btnShowDetails)
                             .addComponent(btnNewReview))
@@ -249,11 +237,12 @@ public final class Gui extends javax.swing.JFrame {
     private void btnNewMovieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewMovieActionPerformed
         NewEntryGui frame = new NewEntryGui();
         frame.setVisible(true);
+        refresh();
     }//GEN-LAST:event_btnNewMovieActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int selectedRow = tblMovies.getSelectedRow();
-        if (selectedRow <= 0) {
+        if (selectedRow < 0) {
             JOptionPane.showMessageDialog(this, "Please select a Movie first");
             return;
         }
@@ -264,26 +253,17 @@ public final class Gui extends javax.swing.JFrame {
         refresh();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void btnChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangeActionPerformed
-        int selectedRow = tblMovies.getSelectedRow();
-        if (selectedRow <= 0) {
-            JOptionPane.showMessageDialog(this, "Please select a Movie first");
-            return;
-        }
-        
-        int id = (int)tableModel.getValueAt(selectedRow, 0);
-        
-        //TODO create change GUI
-    }//GEN-LAST:event_btnChangeActionPerformed
-
     private void btnShowDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowDetailsActionPerformed
         int selectedRow = tblMovies.getSelectedRow();
-        if (selectedRow <= 0) {
+        if (selectedRow < 0) {
             JOptionPane.showMessageDialog(this, "Please select a Movie first");
             return;
         }
         
         int id = (int)tableModel.getValueAt(selectedRow, 0);
+        MovieDetailsGUI frame = new MovieDetailsGUI(id, service);
+        frame.setVisible(true);
+        refresh();
     }//GEN-LAST:event_btnShowDetailsActionPerformed
 
     private void btnNewReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewReviewActionPerformed

@@ -37,7 +37,7 @@ public class NewStudioGUI extends javax.swing.JFrame {
         btnSafe = new javax.swing.JButton();
         btnCancle = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblStudio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblStudio.setText("Name");

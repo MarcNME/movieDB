@@ -92,6 +92,15 @@ public class DbAdapter {
         }
     }
 
+    public void editMovie(int id, String tilte, String description){
+        String dml = "UPDATE `movies` SET `title` = '" + tilte + "', `description` = '" + description + "' WHERE `movies`.`id` = 1 ";
+        try {
+            connector.excecuteNonQuery(dml);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
     public List<Person> getPeople() {
         String sql = "SELECT * FROM persons";
         List<Person> people = new ArrayList<>();
