@@ -33,6 +33,10 @@ public class MovieDBService {
         adapter.addMovie(movie);
     }
 
+    public void editMovie(int movieId, String title, String description) {
+        adapter.editMovie(movieId, title, description);
+    }
+    
     public List<Person> getPersons() {
         return persons;
     }
@@ -74,5 +78,23 @@ public class MovieDBService {
             movie.setReviews(adapter.getReviewsForMovieID(movie.getId()));
             movie.setContributors(adapter.getContributorsByMovieID(movie.getId()));
         });
+    }
+    
+    public String addLineBreaks(String s, int maxLineLength) {
+        String[] splits = s.split(" ");
+        StringBuilder builder = new StringBuilder();
+        String tmp = "";
+        for(String b : splits) {
+             if (tmp.length() + b.length() <= maxLineLength) {
+                 tmp += b + ' ';
+             } else {
+                 builder.append(tmp);
+                 builder.append('\n');
+                 tmp = b;
+             }
+        }
+        builder.append(tmp);
+        
+        return builder.toString();
     }
 }

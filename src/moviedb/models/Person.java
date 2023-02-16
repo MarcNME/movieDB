@@ -13,6 +13,7 @@ public class Person {
         this.birthdate = birthdate;
     }
     public Person(String name, Date birthdate) {
+        this.id = -1;
         this.name = name;
         this.birthdate = birthdate;
     }

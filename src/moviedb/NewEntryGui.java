@@ -75,7 +75,7 @@ public class NewEntryGui extends javax.swing.JFrame {
         boxStudio = new javax.swing.JComboBox<>();
         btnNewStudio = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblImagePath.setText("Bildpfad");
 

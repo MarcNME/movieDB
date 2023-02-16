@@ -130,8 +130,8 @@ public class Movie {
 
     public String getContributorRole(int personID) {
         return this.contributors.stream()
-                .filter(contrbutor -> contrbutor.personID == personID)
-                .map(contrbutor -> contrbutor.role)
+                .filter(contrbutor -> contrbutor.getPersonID() == personID)
+                .map(contrbutor -> contrbutor.getRole())
                 .findAny().orElse(null);
     }
 
