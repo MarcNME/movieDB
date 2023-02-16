@@ -2,11 +2,11 @@ package moviedb.service;
 
 import moviedb.models.Movie;
 import moviedb.models.Person;
+import moviedb.models.Review;
 import moviedb.models.Studio;
 import moviedb.sqlService.DbAdapter;
 
 import java.util.List;
-import moviedb.models.Review;
 
 public class MovieDBService {
     private final DbAdapter adapter;
@@ -30,18 +30,18 @@ public class MovieDBService {
                 .findAny().orElse(null);
     }
 
-    public void addMovie(Movie movie){
+    public void addMovie(Movie movie) {
         adapter.addMovie(movie);
     }
-    
-    public void addReview(Review review, int movieID){
+
+    public void addReview(Review review, int movieID) {
         adapter.addReview(review, movieID);
     }
 
     public void editMovie(int movieId, String title, String description) {
         adapter.editMovie(movieId, title, description);
     }
-    
+
     public List<Person> getPersons() {
         return persons;
     }
@@ -65,12 +65,12 @@ public class MovieDBService {
                 .filter(studio -> studio.getId() == id)
                 .findAny().orElse(null);
     }
-    
+
     public void deleteMovie(int id) {
         adapter.deleteMovie(id);
     }
 
-    public void addStudio(Studio studio){
+    public void addStudio(Studio studio) {
         adapter.addStudio(studio);
     }
 
@@ -79,27 +79,27 @@ public class MovieDBService {
         persons = adapter.getPeople();
         studios = adapter.getStudios();
 
-        movies.forEach(movie -> {
+        movies.forEach((Movie movie) -> {
             movie.setReviews(adapter.getReviewsForMovieID(movie.getId()));
             movie.setContributors(adapter.getContributorsByMovieID(movie.getId()));
         });
     }
-    
+
     public String addLineBreaks(String s, int maxLineLength) {
         String[] splits = s.split(" ");
         StringBuilder builder = new StringBuilder();
         String tmp = "";
-        for(String b : splits) {
-             if (tmp.length() + b.length() <= maxLineLength) {
-                 tmp += b + ' ';
-             } else {
-                 builder.append(tmp);
-                 builder.append('\n');
-                 tmp = b;
-             }
+        for (String b : splits) {
+            if (tmp.length() + b.length() <= maxLineLength) {
+                tmp += b + ' ';
+            } else {
+                builder.append(tmp);
+                builder.append('\n');
+                tmp = b;
+            }
         }
         builder.append(tmp);
-        
+
         return builder.toString();
     }
 }

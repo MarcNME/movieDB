@@ -3,7 +3,7 @@ package moviedb;
 import java.util.List;
 import javax.swing.JCheckBox;
 import moviedb.models.Movie;
-import moviedb.models.Contrbutor;
+import moviedb.models.Contributor;
 import moviedb.service.MovieDBService;
 
 /**
@@ -40,13 +40,13 @@ public class MovieDetailsGUI extends javax.swing.JFrame {
         txfStudio.setText(service.getStudioByID(m.getStudioID()).getName());
         txaDescription.setText(service.addLineBreaks(m.getDescription(), 70));
 
-        List<Contrbutor> contrbutors = m.getContributors();
+        List<Contributor> contributors = m.getContributors();
         StringBuilder builder = new StringBuilder();
 
-        for (Contrbutor contrbutor : contrbutors) {
-            String personName = service.getPersonByID(contrbutor.getPersonID()).getName();
+        for (Contributor contributor : contributors) {
+            String personName = service.getPersonByID(contributor.getPersonID()).getName();
 
-            builder.append(contrbutor.getRole());
+            builder.append(contributor.getRole());
             builder.append(":\t\t");
             builder.append(personName);
             builder.append("\n");

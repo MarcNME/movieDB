@@ -9,8 +9,8 @@ public class Studio {
         this.id = id;
         this.name = name;
     }
-    public Studio(String name)
-    {
+
+    public Studio(String name) {
         this.id = -1;
         this.name = name;
     }

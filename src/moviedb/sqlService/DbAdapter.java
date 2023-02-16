@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 public class DbAdapter {
@@ -58,7 +56,7 @@ public class DbAdapter {
                 movie.setDescription(result.getString("description"));
                 movie.setStudioID(result.getInt("studio_id"));
                 movie.setImagePath(result.getString("imagePath"));
-                
+
                 movie.setContributors(getContributorsByMovieID(id));
             }
             result.close();
@@ -77,30 +75,30 @@ public class DbAdapter {
                 movie.getTitle(), movie.getDescription(), movie.getStudioID());
 
         try {
-            connector.excecuteNonQuery(dml);
+            connector.executeNonQuery(dml);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
-    
+
     public void deleteMovie(int id) {
         String dml = "DELETE FROM movies WHERE `movies`.`id` = " + id;
         try {
-            connector.excecuteNonQuery(dml);
+            connector.executeNonQuery(dml);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
-    public void editMovie(int id, String tilte, String description){
-        String dml = "UPDATE `movies` SET `title` = '" + tilte + "', `description` = '" + description + "' WHERE `movies`.`id` = 1 ";
+    public void editMovie(int id, String title, String description) {
+        String dml = "UPDATE `movies` SET `title` = '" + title + "', `description` = '" + description + "' WHERE `movies`.`id` = 1 ";
         try {
-            connector.excecuteNonQuery(dml);
+            connector.executeNonQuery(dml);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
-    
+
     public List<Person> getPeople() {
         String sql = "SELECT * FROM persons";
         List<Person> people = new ArrayList<>();
@@ -129,7 +127,7 @@ public class DbAdapter {
                 "VALUES (%s, %s)", person.getName(), person.getBirthdate());
 
         try {
-            connector.excecuteNonQuery(dml);
+            connector.executeNonQuery(dml);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -166,8 +164,7 @@ public class DbAdapter {
                 review.getGrade(), review.getUserName(), movieID);
 
         try {
-            System.out.println(dml);
-            connector.excecuteNonQuery(dml);
+            connector.executeNonQuery(dml);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -219,21 +216,21 @@ public class DbAdapter {
                 "(name) VALUES (%s)", studio.getName());
 
         try {
-            connector.excecuteNonQuery(dml);
+            connector.executeNonQuery(dml);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public List<Contrbutor> getContributorsByMovieID(int movieID) {
+    public List<Contributor> getContributorsByMovieID(int movieID) {
         String sql = "SELECT * FROM `contributors` WHERE movie_id = " + movieID + ";";
-        List<Contrbutor> contributions = new ArrayList<>();
+        List<Contributor> contributions = new ArrayList<>();
 
         try {
             ResultSet result = connector.executeQuery(sql);
 
             while (result.next()) {
-                contributions.add(new Contrbutor(
+                contributions.add(new Contributor(
                         result.getInt("person_id"),
                         result.getString("role")));
             }
@@ -252,7 +249,7 @@ public class DbAdapter {
                 " VALUES (%d, %d, %s)", movieID, personID, role);
 
         try {
-            connector.excecuteNonQuery(dml);
+            connector.executeNonQuery(dml);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

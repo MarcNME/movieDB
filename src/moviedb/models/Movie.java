@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class Movie {
 
-    private List<Contrbutor> contributors; //Contributors to the movie <personId, role>
+    private List<Contributor> contributors; //Contributors to the movie <personId, role>
     private List<Review> reviews;
     private int id;
     private String title;
@@ -25,7 +25,7 @@ public class Movie {
         this.imagePath = "notChanged";
     }
 
-    public Movie(int id, String title, int studioID, List<Contrbutor> contributors) {
+    public Movie(int id, String title, int studioID, List<Contributor> contributors) {
         this.id = id;
         this.title = title;
         this.studioID = studioID;
@@ -44,7 +44,8 @@ public class Movie {
         this.description = "";
         this.imagePath = "";
     }
-    public Movie(String title,int studioID, String imagePath, String description) {
+
+    public Movie(String title, int studioID, String imagePath, String description) {
         this.title = title;
         this.studioID = studioID;
         this.description = description;
@@ -93,8 +94,12 @@ public class Movie {
         this.studioID = studioID;
     }
 
-    public List<Contrbutor> getContributors() {
+    public List<Contributor> getContributors() {
         return contributors;
+    }
+
+    public void setContributors(List<Contributor> contributors) {
+        this.contributors = contributors;
     }
 
     public List<Review> getReviews() {
@@ -116,32 +121,28 @@ public class Movie {
     }
 
     public double getAverageRating() {
-        List<Integer> grades =  reviews.stream().map(Review::getGrade).collect(Collectors.toList());
+        List<Integer> grades = reviews.stream().map(Review::getGrade).collect(Collectors.toList());
         OptionalDouble average = grades.stream().mapToDouble(a -> a).average();
 
         return average.isPresent() ? average.getAsDouble() : 0;
     }
 
-    public void setContributors(List<Contrbutor> contributors) {
-        this.contributors = contributors;
-    }
-
     public void addContributor(int personID, String role) {
-        this.contributors.add(new Contrbutor(personID, role));
+        this.contributors.add(new Contributor(personID, role));
     }
 
     public String getContributorRole(int personID) {
         return this.contributors.stream()
-                .filter(contrbutor -> contrbutor.getPersonID() == personID)
-                .map(contrbutor -> contrbutor.getRole())
+                .filter(contributor -> contributor.getPersonID() == personID)
+                .map(Contributor::getRole)
                 .findAny().orElse(null);
     }
 
     public List<Integer> getContributorsIDsByRole(String role) {
         List<Integer> contributorIds = new ArrayList<>();
-        for (Contrbutor contrbutor : contributors) {
-            if (contrbutor.getRole().equals(role)) {
-                contributorIds.add(contrbutor.getPersonID());
+        for (Contributor contributor : contributors) {
+            if (contributor.getRole().equals(role)) {
+                contributorIds.add(contributor.getPersonID());
             }
         }
 
