@@ -17,12 +17,12 @@ import java.util.Date;
  *
  * @author david.omoregie
  */
-public class NewPerson extends javax.swing.JFrame {
+public class NewPersonGUI extends javax.swing.JFrame {
 
     /**
      * Creates new form NewPerson
      */
-    public NewPerson() {
+    public NewPersonGUI() {
         initComponents();
     }
     public DbAdapter dbAdapter = new DbAdapter();

@@ -161,11 +161,12 @@ public class DbAdapter {
 
     public void addReview(Review review, int movieID) {
         String dml = String.format("INSERT INTO `reviews` " +
-                        "(grade, userName, user_id) " +
-                        "VALUES (%d, %s, %d);",
+                        "(grade, userName, movie_id) " +
+                        "VALUES (%d, '%s', %d);",
                 review.getGrade(), review.getUserName(), movieID);
 
         try {
+            System.out.println(dml);
             connector.excecuteNonQuery(dml);
         } catch (SQLException e) {
             System.out.println(e.getMessage());

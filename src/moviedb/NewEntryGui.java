@@ -5,15 +5,14 @@
  */
 package moviedb;
 
-import javax.swing.*;
 
 import moviedb.models.Movie;
 import moviedb.models.Person;
 import moviedb.models.Studio;
 import  moviedb.service.MovieDBService;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.awt.FileDialog;
+import java.awt.Frame;
 
 /**
  *
@@ -78,6 +77,12 @@ public class NewEntryGui extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblImagePath.setText("Bildpfad");
+
+        txtImagePath.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtImagePathMouseClicked(evt);
+            }
+        });
 
         lblTitle.setText("Titel");
 
@@ -195,12 +200,12 @@ public class NewEntryGui extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnNewPersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewPersonActionPerformed
-        NewPerson frame = new NewPerson();
+        NewPersonGUI frame = new NewPersonGUI();
         frame.setVisible(true);
     }//GEN-LAST:event_btnNewPersonActionPerformed
 
     private void btnNewStudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewStudioActionPerformed
-        NewStudio frame = new NewStudio();
+        NewStudioGUI frame = new NewStudioGUI();
         frame.setVisible(true);
     }//GEN-LAST:event_btnNewStudioActionPerformed
 
@@ -214,6 +219,14 @@ public class NewEntryGui extends javax.swing.JFrame {
         service.addStudio(s);
         service.addPerson(p);
     }//GEN-LAST:event_btnSafeActionPerformed
+
+    private void txtImagePathMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtImagePathMouseClicked
+        FileDialog dialog = new FileDialog((Frame)null, "Select File to Open");
+        dialog.setMode(FileDialog.LOAD);
+        dialog.setVisible(true);
+        txtImagePath.setText(dialog.getFile());
+        dialog.dispose();
+    }//GEN-LAST:event_txtImagePathMouseClicked
 
     private void updatePersons()
     {
