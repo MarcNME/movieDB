@@ -48,6 +48,8 @@ public class Movie {
         this.title = title;
         this.studioID = studioID;
         this.description = description;
+        this.contributors = new ArrayList<>();
+        this.reviews = new ArrayList<>();
         this.imagePath = imagePath;
     }
 

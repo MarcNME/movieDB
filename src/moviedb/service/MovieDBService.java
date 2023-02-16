@@ -6,6 +6,7 @@ import moviedb.models.Studio;
 import moviedb.sqlService.DbAdapter;
 
 import java.util.List;
+import moviedb.models.Review;
 
 public class MovieDBService {
     private final DbAdapter adapter;
@@ -31,6 +32,10 @@ public class MovieDBService {
 
     public void addMovie(Movie movie){
         adapter.addMovie(movie);
+    }
+    
+    public void addReview(Review review, int movieID){
+        adapter.addReview(review, movieID);
     }
 
     public List<Person> getPersons() {

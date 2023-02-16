@@ -10,6 +10,10 @@ public class Review {
         this.grade = grade;
         this.userName = userName;
     }
+     public Review(int grade, String userName) {
+        this.grade = grade;
+        this.userName = userName;
+    }
 
     public int getId() {
         return id;

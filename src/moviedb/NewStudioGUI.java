@@ -13,13 +13,13 @@ import  moviedb.service.MovieDBService;
  *
  * @author david.omoregie
  */
-public class NewStudio extends javax.swing.JFrame {
+public class NewStudioGUI extends javax.swing.JFrame {
 
     /**
-     * Creates new form NewStudio
+     * Creates new form NewStudioGUI
      */
     public MovieDBService service = new MovieDBService();
-    public NewStudio() {
+    public NewStudioGUI() {
         initComponents();
     }
 
@@ -115,20 +115,21 @@ public class NewStudio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewStudio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewStudioGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewStudio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewStudioGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewStudio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewStudioGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewStudio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewStudioGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewStudio().setVisible(true);
+                new NewStudioGUI().setVisible(true);
             }
         });
     }
