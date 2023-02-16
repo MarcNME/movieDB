@@ -294,5 +294,7 @@ public final class Gui extends javax.swing.JFrame {
         }
         
         int id = (int)tableModel.getValueAt(selectedRow, 0);
+        NewReviewGUI frame = new NewReviewGUI(id);
+        frame.setVisible(true);
     }//GEN-LAST:event_btnNewReviewActionPerformed
 }
