@@ -1,11 +1,11 @@
 package moviedb.models;
 
-public class Contrbutor {
+public class Contributor {
 
     private final int personID;
     private final String role;
 
-    public Contrbutor(int personID, String role) {
+    public Contributor(int personID, String role) {
         this.personID = personID;
         this.role = role;
     }

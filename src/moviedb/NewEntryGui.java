@@ -1,36 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package moviedb;
 
 
 import moviedb.models.Movie;
 import moviedb.models.Person;
 import moviedb.models.Studio;
-import  moviedb.service.MovieDBService;
+import moviedb.service.MovieDBService;
 
-import java.awt.FileDialog;
-import java.awt.Frame;
+import java.awt.*;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
- *
  * @author david.omoregie
  */
 
-public class NewEntryGui extends javax.swing.JFrame {
-     private void refresh() {
-        service.refresh();
-        updatePersons();
-        updateStudios();
-    }
-
-    private static MovieDBService service;
-    public NewEntryGui() { initComponents();
-        service = new MovieDBService();
-        refresh();
-    }
+public class NewEntryGui extends javax.swing.JDialog {
+    private final MovieDBService service;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Person> boxPerson;
     private javax.swing.JComboBox<Studio> boxStudio;
@@ -48,7 +34,19 @@ public class NewEntryGui extends javax.swing.JFrame {
     private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
 
+    public NewEntryGui(MovieDBService service, javax.swing.JFrame parent) {
+        super(parent, true);
+        
+        initComponents();
+        this.service = service;
+        refresh();
+    }
 
+    private void refresh() {
+        service.refresh();
+        updatePersons();
+        updateStudios();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -123,70 +121,70 @@ public class NewEntryGui extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblStudio)
-                    .addComponent(lblDescription)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(boxPerson, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtTitle, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(lblImagePath, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lblDirector, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addGap(0, 0, Short.MAX_VALUE))
-                                .addComponent(txtImagePath, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addGap(18, 18, 18)
-                            .addComponent(btnNewPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnSafe)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                            .addComponent(btnCancel))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtDescription, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(boxStudio, javax.swing.GroupLayout.Alignment.LEADING, 0, 125, Short.MAX_VALUE))
-                            .addGap(18, 18, 18)
-                            .addComponent(btnNewStudio))))
-                .addContainerGap(63, Short.MAX_VALUE))
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblStudio)
+                                        .addComponent(lblDescription)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                .addComponent(boxPerson, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(txtTitle, javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                                .addComponent(lblImagePath, javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(lblTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(lblDirector, javax.swing.GroupLayout.Alignment.LEADING))
+                                                                        .addGap(0, 0, Short.MAX_VALUE))
+                                                                .addComponent(txtImagePath, javax.swing.GroupLayout.Alignment.LEADING))
+                                                        .addGap(18, 18, 18)
+                                                        .addComponent(btnNewPerson, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(layout.createSequentialGroup()
+                                                        .addComponent(btnSafe)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                                                        .addComponent(btnCancel))
+                                                .addGroup(layout.createSequentialGroup()
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                                .addComponent(txtDescription, javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addComponent(boxStudio, javax.swing.GroupLayout.Alignment.LEADING, 0, 125, Short.MAX_VALUE))
+                                                        .addGap(18, 18, 18)
+                                                        .addComponent(btnNewStudio))))
+                                .addContainerGap(63, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(lblImagePath)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtImagePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblDirector)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(boxPerson, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNewPerson))
-                .addGap(11, 11, 11)
-                .addComponent(lblStudio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(boxStudio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNewStudio))
-                .addGap(17, 17, 17)
-                .addComponent(lblDescription)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSafe)
-                    .addComponent(btnCancel))
-                .addContainerGap(15, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(lblImagePath)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtImagePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblTitle)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblDirector)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(boxPerson, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnNewPerson))
+                                .addGap(11, 11, 11)
+                                .addComponent(lblStudio)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(boxStudio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnNewStudio))
+                                .addGap(17, 17, 17)
+                                .addComponent(lblDescription)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(btnSafe)
+                                        .addComponent(btnCancel))
+                                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         boxPerson.getAccessibleContext().setAccessibleName("");
@@ -200,76 +198,46 @@ public class NewEntryGui extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnNewPersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewPersonActionPerformed
-        NewPersonGUI frame = new NewPersonGUI();
+        NewPersonGUI frame = new NewPersonGUI(service, this);
         frame.setVisible(true);
+        
+        refresh();
     }//GEN-LAST:event_btnNewPersonActionPerformed
 
     private void btnNewStudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewStudioActionPerformed
-        NewStudioGUI frame = new NewStudioGUI();
+        NewStudioGUI frame = new NewStudioGUI(service, this);
         frame.setVisible(true);
+        
+        refresh();
     }//GEN-LAST:event_btnNewStudioActionPerformed
 
     private void btnSafeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSafeActionPerformed
-        Person p = (Person)boxPerson.getSelectedItem();
-        Studio s =(Studio) boxStudio.getSelectedItem();
-        Movie m = new Movie(txtTitle.getText(), s.getId(),txtImagePath.getText(),txtDescription.getText());
+        Person p = (Person) boxPerson.getSelectedItem();
+        Studio s = (Studio) boxStudio.getSelectedItem();
+        Movie m = new Movie(txtTitle.getText(), s.getId(), txtImagePath.getText(), txtDescription.getText());
         m.addContributor(p.getId(), "Regisseur");
         m.setStudioID(s.getId());
         service.addMovie(m);
-        service.addStudio(s);
-        service.addPerson(p);
+        
+        JOptionPane.showMessageDialog(this, "Movie saved");
+        this.dispose();
     }//GEN-LAST:event_btnSafeActionPerformed
 
     private void txtImagePathMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtImagePathMouseClicked
-        FileDialog dialog = new FileDialog((Frame)null, "Select File to Open");
+        FileDialog dialog = new FileDialog((Frame) null, "Select File to Open");
         dialog.setMode(FileDialog.LOAD);
         dialog.setVisible(true);
         txtImagePath.setText(dialog.getFile());
         dialog.dispose();
     }//GEN-LAST:event_txtImagePathMouseClicked
 
-    private void updatePersons()
-    {
+    private void updatePersons() {
+        boxPerson.removeAllItems();
         service.getPersons().forEach(person -> boxPerson.addItem(person));
     }
 
-    private void updateStudios()
-    {
+    private void updateStudios() {
+        boxStudio.removeAllItems();
         service.getStudios().forEach(studio -> boxStudio.addItem(studio));
-    }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewEntryGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewEntryGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewEntryGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewEntryGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NewEntryGui().setVisible(true);
-            }
-        });
     }
 }

@@ -3,14 +3,14 @@ package moviedb;
 import java.util.List;
 import javax.swing.JCheckBox;
 import moviedb.models.Movie;
-import moviedb.models.Contrbutor;
+import moviedb.models.Contributor;
 import moviedb.service.MovieDBService;
 
 /**
  *
  * @author enzma
  */
-public class MovieDetailsGUI extends javax.swing.JFrame {
+public class MovieDetailsGUI extends javax.swing.JDialog {
 
     int id;
     Movie m;
@@ -22,8 +22,11 @@ public class MovieDetailsGUI extends javax.swing.JFrame {
      *
      * @param id
      * @param service
+     * @param parent
      */
-    public MovieDetailsGUI(int id, MovieDBService service) {
+    public MovieDetailsGUI(int id, MovieDBService service, javax.swing.JFrame parent) {
+        super(parent, true);
+        
         this.id = id;
         this.service = service;
 
@@ -40,13 +43,13 @@ public class MovieDetailsGUI extends javax.swing.JFrame {
         txfStudio.setText(service.getStudioByID(m.getStudioID()).getName());
         txaDescription.setText(service.addLineBreaks(m.getDescription(), 70));
 
-        List<Contrbutor> contrbutors = m.getContributors();
+        List<Contributor> contributors = m.getContributors();
         StringBuilder builder = new StringBuilder();
 
-        for (Contrbutor contrbutor : contrbutors) {
-            String personName = service.getPersonByID(contrbutor.getPersonID()).getName();
+        for (Contributor contributor : contributors) {
+            String personName = service.getPersonByID(contributor.getPersonID()).getName();
 
-            builder.append(contrbutor.getRole());
+            builder.append(contributor.getRole());
             builder.append(":\t\t");
             builder.append(personName);
             builder.append("\n");
@@ -221,11 +224,12 @@ public class MovieDetailsGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddReviewActionPerformed
-        // TODO add your handling code here:
+        NewReviewGUI frame = new NewReviewGUI(id, this);
+        frame.setVisible(true);
     }//GEN-LAST:event_btnAddReviewActionPerformed
 
     private void btnSafeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSafeActionPerformed
-        service.editMovie(id, txfTitle.getText(), txaDescription.getText().replace("\n", ""));
+        service.editMovie(id, txfTitle.getText(), txaDescription.getText().replace("\n", "")); 
         service.refresh();
         refresh();
     }//GEN-LAST:event_btnSafeActionPerformed

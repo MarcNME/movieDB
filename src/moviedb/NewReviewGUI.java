@@ -14,15 +14,27 @@ import javax.swing.*;
  *
  * @author david.omoregie
  */
-public class NewReviewGUI extends javax.swing.JFrame {
+public class NewReviewGUI extends javax.swing.JDialog {
 
     private final int id;
     private final MovieDBService service;
     /**
      * Creates new form NewReview
      * @param id
+     * @param service
+     * @param parent
      */
-    public NewReviewGUI(int id) {
+    public NewReviewGUI(int id, MovieDBService service, javax.swing.JFrame parent) {
+        super(parent, true);
+        
+        this.id = id;
+        this.service = service;
+        initComponents();
+    }
+    
+    public NewReviewGUI(int id, javax.swing.JDialog parent) {
+        super(parent, true);
+        
         this.id = id;
         this.service = new MovieDBService();
         initComponents();
@@ -74,9 +86,7 @@ public class NewReviewGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblRating)
-                            .addComponent(txtRating, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblRating)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,7 +95,10 @@ public class NewReviewGUI extends javax.swing.JFrame {
                                 .addGap(55, 55, 55)
                                 .addComponent(btnCancle))
                             .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 23, Short.MAX_VALUE))))
+                        .addGap(0, 23, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtRating, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,6 +138,7 @@ public class NewReviewGUI extends javax.swing.JFrame {
         }
        Review r = new Review(Integer.parseInt(txtRating.getText()), txtUsername.getText());
        service.addReview(r, id);
+       JOptionPane.showMessageDialog(this, "Review safed");
        dispose();
     }//GEN-LAST:event_btnSafe
 

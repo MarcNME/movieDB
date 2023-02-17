@@ -4,13 +4,12 @@ import moviedb.models.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 public class DbAdapter {
+
     private final DbConnector connector;
 
     public DbAdapter() {
@@ -58,7 +57,7 @@ public class DbAdapter {
                 movie.setDescription(result.getString("description"));
                 movie.setStudioID(result.getInt("studio_id"));
                 movie.setImagePath(result.getString("imagePath"));
-                
+
                 movie.setContributors(getContributorsByMovieID(id));
             }
             result.close();
@@ -70,37 +69,57 @@ public class DbAdapter {
         return movie;
     }
 
+    public int getMovieID(Movie m) {
+        String sql = String.format("SELECT id FROM movies "
+                + "WHERE title = '%s' AND description = '%s' AND studio_id = %d;",
+                m.getTitle(), m.getDescription(), m.getStudioID());
+        System.out.println(sql);
+        int id = -1;
+        try {
+            ResultSet result = connector.executeQuery(sql);
+            if (result.next()) {
+                id = result.getInt("id");
+            }
+            result.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        connector.close();
+        return id;
+    }
+
     public void addMovie(Movie movie) {
-        String dml = String.format("INSERT INTO `movies` " +
-                        "(`title`, `description`, `studio_id`) " +
-                        "VALUES ('%s', '%s', '%d');",
+        String dml = String.format("INSERT INTO `movies` "
+                + "(`title`, `description`, `studio_id`) "
+                + "VALUES ('%s', '%s', %d);",
                 movie.getTitle(), movie.getDescription(), movie.getStudioID());
 
         try {
-            connector.excecuteNonQuery(dml);
+            connector.executeNonQuery(dml);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
-    
+
     public void deleteMovie(int id) {
         String dml = "DELETE FROM movies WHERE `movies`.`id` = " + id;
         try {
-            connector.excecuteNonQuery(dml);
+            connector.executeNonQuery(dml);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
-    public void editMovie(int id, String tilte, String description){
-        String dml = "UPDATE `movies` SET `title` = '" + tilte + "', `description` = '" + description + "' WHERE `movies`.`id` = 1 ";
+    public void editMovie(int id, String title, String description) {
+        String dml = "UPDATE `movies` SET `title` = '" + title + "', `description` = '" + description + "' WHERE `movies`.`id` = 1 ";
         try {
-            connector.excecuteNonQuery(dml);
+            connector.executeNonQuery(dml);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
     }
-    
+
     public List<Person> getPeople() {
         String sql = "SELECT * FROM persons";
         List<Person> people = new ArrayList<>();
@@ -124,12 +143,13 @@ public class DbAdapter {
     }
 
     public void addPerson(Person person) {
-        String dml = String.format("INSERT INTO `persons` " +
-                "(name, birthday) " +
-                "VALUES (%s, %s)", person.getName(), person.getBirthdate());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String dml = String.format("INSERT INTO `persons` "
+                + "(name, birthday) "
+                + "VALUES ('%s', '%s')", person.getName(), dateFormat.format(person.getBirthdate()));
 
         try {
-            connector.excecuteNonQuery(dml);
+            connector.executeNonQuery(dml);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -160,14 +180,22 @@ public class DbAdapter {
     }
 
     public void addReview(Review review, int movieID) {
-        String dml = String.format("INSERT INTO `reviews` " +
-                        "(grade, userName, movie_id) " +
-                        "VALUES (%d, '%s', %d);",
+        String dml = String.format("INSERT INTO `reviews` "
+                + "(grade, userName, movie_id) "
+                + "VALUES (%d, '%s', %d);",
                 review.getGrade(), review.getUserName(), movieID);
 
         try {
-            System.out.println(dml);
-            connector.excecuteNonQuery(dml);
+            connector.executeNonQuery(dml);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void deleteReviewsForMovie(int movieId) {
+        String dml = "DELETE FROM reviews WHERE `reviews`.`movie_id` = " + movieId;
+        try {
+            connector.executeNonQuery(dml);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -215,25 +243,25 @@ public class DbAdapter {
     }
 
     public void addStudio(Studio studio) {
-        String dml = String.format("INSERT INTO `studios`" +
-                "(name) VALUES (%s)", studio.getName());
+        String dml = String.format("INSERT INTO `studios`"
+                + "(name) VALUES ('%s')", studio.getName());
 
         try {
-            connector.excecuteNonQuery(dml);
+            connector.executeNonQuery(dml);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public List<Contrbutor> getContributorsByMovieID(int movieID) {
+    public List<Contributor> getContributorsByMovieID(int movieID) {
         String sql = "SELECT * FROM `contributors` WHERE movie_id = " + movieID + ";";
-        List<Contrbutor> contributions = new ArrayList<>();
+        List<Contributor> contributions = new ArrayList<>();
 
         try {
             ResultSet result = connector.executeQuery(sql);
 
             while (result.next()) {
-                contributions.add(new Contrbutor(
+                contributions.add(new Contributor(
                         result.getInt("person_id"),
                         result.getString("role")));
             }
@@ -247,12 +275,22 @@ public class DbAdapter {
     }
 
     public void addContribution(int movieID, int personID, String role) {
-        String dml = String.format("INSERT INTO `contributors` " +
-                "(person_id, movie_id, role)" +
-                " VALUES (%d, %d, %s)", movieID, personID, role);
+        String dml = String.format("INSERT INTO `contributors` "
+                + "(person_id, movie_id, role)"
+                + " VALUES (%d, %d, '%s')", personID, movieID, role);
 
         try {
-            connector.excecuteNonQuery(dml);
+            connector.executeNonQuery(dml);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public void deleteContributionsForMovie(int movieId) {
+        String dml = "DELETE FROM contributors WHERE `contributors`.`movie_id` = " + movieId;
+        
+        try {
+            connector.executeNonQuery(dml);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

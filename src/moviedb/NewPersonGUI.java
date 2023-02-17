@@ -1,32 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package moviedb;
 
 import moviedb.models.Person;
-import moviedb.sqlService.DbAdapter;
 import moviedb.service.MovieDBService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
- *
  * @author david.omoregie
  */
-public class NewPersonGUI extends javax.swing.JFrame {
+public class NewPersonGUI extends javax.swing.JDialog {
+
+    public MovieDBService service;
 
     /**
      * Creates new form NewPerson
+     *
+     * @param service
+     * @param parent
      */
-    public NewPersonGUI() {
+    public NewPersonGUI(MovieDBService service, javax.swing.JDialog parent) {
+        super(parent, true);
         initComponents();
+
+        this.service = service;
     }
-    public DbAdapter dbAdapter = new DbAdapter();
-    public MovieDBService service = new MovieDBService();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,6 +65,7 @@ public class NewPersonGUI extends javax.swing.JFrame {
         });
 
         txtDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        txtDate.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,12 +116,15 @@ public class NewPersonGUI extends javax.swing.JFrame {
         String txtDateText = txtDate.getText();
         Date dateFormatted = null;
         try {
-            dateFormatted = new SimpleDateFormat("dd/MM/yyyy").parse(txtDateText);
+            dateFormatted = new SimpleDateFormat("dd.MM.yyyy").parse(txtDateText);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        Person person = new Person(txtName.getText(),dateFormatted);
+        Person person = new Person(txtName.getText(), dateFormatted);
         service.addPerson(person);
+
+        JOptionPane.showMessageDialog(this, "New person safed");
+        this.dispose();
     }//GEN-LAST:event_btnSafe
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
