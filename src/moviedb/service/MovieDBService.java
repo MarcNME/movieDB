@@ -9,6 +9,7 @@ import moviedb.sqlService.DbAdapter;
 import java.util.List;
 
 public class MovieDBService {
+
     private final DbAdapter adapter;
 
     private List<Movie> movies;
@@ -32,14 +33,27 @@ public class MovieDBService {
 
     public void addMovie(Movie movie) {
         adapter.addMovie(movie);
-    }
+        int movieId = adapter.getMovieID(movie);
 
-    public void addReview(Review review, int movieID) {
-        adapter.addReview(review, movieID);
+        movie.getContributors().forEach(contributor
+                -> adapter.addContribution(
+                        movieId,
+                        contributor.getPersonID(),
+                        contributor.getRole()));
     }
 
     public void editMovie(int movieId, String title, String description) {
         adapter.editMovie(movieId, title, description);
+    }
+
+    public void deleteMovie(int id) {
+        adapter.deleteReviewsForMovie(id);
+        adapter.deleteContributionsForMovie(id);
+        adapter.deleteMovie(id);
+    }
+
+    public void addReview(Review review, int movieID) {
+        adapter.addReview(review, movieID);
     }
 
     public List<Person> getPersons() {
@@ -64,10 +78,6 @@ public class MovieDBService {
         return studios.stream()
                 .filter(studio -> studio.getId() == id)
                 .findAny().orElse(null);
-    }
-
-    public void deleteMovie(int id) {
-        adapter.deleteMovie(id);
     }
 
     public void addStudio(Studio studio) {

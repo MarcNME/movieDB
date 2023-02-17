@@ -138,6 +138,7 @@ public class NewReviewGUI extends javax.swing.JDialog {
         }
        Review r = new Review(Integer.parseInt(txtRating.getText()), txtUsername.getText());
        service.addReview(r, id);
+       JOptionPane.showMessageDialog(this, "Review safed");
        dispose();
     }//GEN-LAST:event_btnSafe
 

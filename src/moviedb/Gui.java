@@ -101,8 +101,8 @@ public final class Gui extends javax.swing.JFrame {
         columnModel.getColumn(2).setMinWidth(120);
 
         //Column width for the Studio
-        columnModel.getColumn(3).setMaxWidth(70);
-        columnModel.getColumn(3).setMinWidth(70);
+        columnModel.getColumn(3).setMaxWidth(100);
+        columnModel.getColumn(3).setMinWidth(100);
 
         //Column Width for the rating
         columnModel.getColumn(4).setMaxWidth(55);
@@ -227,7 +227,7 @@ public final class Gui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNewMovieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewMovieActionPerformed
-        NewEntryGui frame = new NewEntryGui(this);
+        NewEntryGui frame = new NewEntryGui(service, this);
         frame.setVisible(true);
         
         refresh(); //Refresh after Dialog is finished

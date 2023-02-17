@@ -7,13 +7,15 @@ import moviedb.models.Studio;
 import moviedb.service.MovieDBService;
 
 import java.awt.*;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  * @author david.omoregie
  */
 
 public class NewEntryGui extends javax.swing.JDialog {
-    private static MovieDBService service;
+    private final MovieDBService service;
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Person> boxPerson;
@@ -32,11 +34,11 @@ public class NewEntryGui extends javax.swing.JDialog {
     private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
 
-    public NewEntryGui(javax.swing.JFrame parent) {
+    public NewEntryGui(MovieDBService service, javax.swing.JFrame parent) {
         super(parent, true);
         
         initComponents();
-        service = new MovieDBService();
+        this.service = service;
         refresh();
     }
 
@@ -196,13 +198,17 @@ public class NewEntryGui extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnNewPersonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewPersonActionPerformed
-        NewPersonGUI frame = new NewPersonGUI(this);
+        NewPersonGUI frame = new NewPersonGUI(service, this);
         frame.setVisible(true);
+        
+        refresh();
     }//GEN-LAST:event_btnNewPersonActionPerformed
 
     private void btnNewStudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewStudioActionPerformed
-        NewStudioGUI frame = new NewStudioGUI(this);
+        NewStudioGUI frame = new NewStudioGUI(service, this);
         frame.setVisible(true);
+        
+        refresh();
     }//GEN-LAST:event_btnNewStudioActionPerformed
 
     private void btnSafeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSafeActionPerformed
@@ -212,8 +218,9 @@ public class NewEntryGui extends javax.swing.JDialog {
         m.addContributor(p.getId(), "Regisseur");
         m.setStudioID(s.getId());
         service.addMovie(m);
-        service.addStudio(s);
-        service.addPerson(p);
+        
+        JOptionPane.showMessageDialog(this, "Movie saved");
+        this.dispose();
     }//GEN-LAST:event_btnSafeActionPerformed
 
     private void txtImagePathMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtImagePathMouseClicked
@@ -225,10 +232,12 @@ public class NewEntryGui extends javax.swing.JDialog {
     }//GEN-LAST:event_txtImagePathMouseClicked
 
     private void updatePersons() {
+        boxPerson.removeAllItems();
         service.getPersons().forEach(person -> boxPerson.addItem(person));
     }
 
     private void updateStudios() {
+        boxStudio.removeAllItems();
         service.getStudios().forEach(studio -> boxStudio.addItem(studio));
     }
 }

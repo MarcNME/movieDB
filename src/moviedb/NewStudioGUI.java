@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package moviedb;
 
+import javax.swing.JOptionPane;
 import moviedb.models.Studio;
 import  moviedb.service.MovieDBService;
 
@@ -14,15 +10,18 @@ import  moviedb.service.MovieDBService;
  */
 public class NewStudioGUI extends javax.swing.JDialog {
 
-    public MovieDBService service = new MovieDBService();
+    public MovieDBService service;
     
     /**
      * Creates new form NewStudioGUI
+     * @param service
      * @param parent
      */    
-    public NewStudioGUI(javax.swing.JDialog parent) {
+    public NewStudioGUI(MovieDBService service, javax.swing.JDialog parent) {
         super(parent, true);
         initComponents();
+        
+        this.service = service;
     }
 
     /**
@@ -94,6 +93,9 @@ public class NewStudioGUI extends javax.swing.JDialog {
     private void btnSafeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSafeActionPerformed
         Studio studio = new Studio(txtName.getText());
         service.addStudio(studio);
+        
+        JOptionPane.showMessageDialog(this, "New studio added");       
+        this.dispose();
     }//GEN-LAST:event_btnSafeActionPerformed
 
     private void btnCancleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancleActionPerformed

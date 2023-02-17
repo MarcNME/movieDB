@@ -73,6 +73,7 @@ public class MySqlConnector implements DbConnector {
             System.out.println("No connection has been established!");
             return;
         }
+        System.out.println(dml);
 
         statement = connection.createStatement();
         statement.execute(dml);
