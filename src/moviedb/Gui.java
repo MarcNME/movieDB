@@ -79,7 +79,7 @@ public final class Gui extends javax.swing.JFrame {
                     movie.getTitle(),
                     directorName,
                     service.getStudioByID(movie.getStudioID()).getName(),
-                    movie.getAverageRating()};
+                    String.format("%.1f", movie.getAverageRating())};
             tableModel.addRow(objs);
         });
     }

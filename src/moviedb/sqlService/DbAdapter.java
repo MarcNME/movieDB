@@ -112,7 +112,7 @@ public class DbAdapter {
     }
 
     public void editMovie(int id, String title, String description) {
-        String dml = "UPDATE `movies` SET `title` = '" + title + "', `description` = '" + description + "' WHERE `movies`.`id` = 1 ";
+        String dml = "UPDATE `movies` SET `title` = '" + title + "', `description` = '" + description + "' WHERE `movies`.`id` = '" + id + "'";
         try {
             connector.executeNonQuery(dml);
         } catch (SQLException ex) {

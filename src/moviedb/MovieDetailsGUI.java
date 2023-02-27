@@ -39,7 +39,7 @@ public class MovieDetailsGUI extends javax.swing.JDialog {
         m = service.getMoviesByID(id);
 
         txfTitle.setText(m.getTitle());
-        txfReview.setText(String.valueOf(m.getAverageRating()));
+        txfReview.setText(String.format("%.1f", m.getAverageRating()));
         txfStudio.setText(service.getStudioByID(m.getStudioID()).getName());
         txaDescription.setText(service.addLineBreaks(m.getDescription(), 70));
 
