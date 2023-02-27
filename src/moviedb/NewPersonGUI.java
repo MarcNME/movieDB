@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class NewPersonGUI extends javax.swing.JDialog {
 
-    public MovieDBService service;
+    private final MovieDBService service;
 
     /**
      * Creates new form NewPerson

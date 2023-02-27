@@ -12,10 +12,10 @@ import moviedb.service.MovieDBService;
  */
 public class MovieDetailsGUI extends javax.swing.JDialog {
 
-    int id;
-    Movie m;
+    private final int id;
+    private Movie m;
 
-    MovieDBService service;
+    private final MovieDBService service;
 
     /**
      * Creates new form MovieDetailsGUI

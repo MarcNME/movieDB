@@ -7,7 +7,6 @@ import moviedb.models.Studio;
 import moviedb.service.MovieDBService;
 
 import java.awt.*;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**

@@ -2,7 +2,7 @@ package moviedb;
 
 import javax.swing.JOptionPane;
 import moviedb.models.Studio;
-import  moviedb.service.MovieDBService;
+import moviedb.service.MovieDBService;
 
 /**
  *
@@ -10,17 +10,18 @@ import  moviedb.service.MovieDBService;
  */
 public class NewStudioGUI extends javax.swing.JDialog {
 
-    public MovieDBService service;
-    
+    private final MovieDBService service;
+
     /**
      * Creates new form NewStudioGUI
+     *
      * @param service
      * @param parent
-     */    
+     */
     public NewStudioGUI(MovieDBService service, javax.swing.JDialog parent) {
         super(parent, true);
         initComponents();
-        
+
         this.service = service;
     }
 
@@ -91,15 +92,14 @@ public class NewStudioGUI extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSafeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSafeActionPerformed
-        Studio studio = new Studio(txtName.getText());
-        service.addStudio(studio);
-        
-        JOptionPane.showMessageDialog(this, "New studio added");       
+        service.addStudio(new Studio(txtName.getText()));
+
+        JOptionPane.showMessageDialog(this, "New studio added");
         this.dispose();
     }//GEN-LAST:event_btnSafeActionPerformed
 
     private void btnCancleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancleActionPerformed
-       dispose();
+        dispose();
     }//GEN-LAST:event_btnCancleActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

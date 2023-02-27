@@ -10,8 +10,9 @@ import java.text.NumberFormat;
 
 public final class Gui extends javax.swing.JFrame {
 
-    final MovieDBService service;
-    final DefaultTableModel tableModel;
+    private final MovieDBService service;
+    private final DefaultTableModel tableModel;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnNewMovie;
