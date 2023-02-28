@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package moviedb;
 
 import moviedb.models.Review;
@@ -18,28 +13,29 @@ public class NewReviewGUI extends javax.swing.JDialog {
 
     private final int id;
     private final MovieDBService service;
+
     /**
      * Creates new form NewReview
+     *
      * @param id
      * @param service
      * @param parent
      */
     public NewReviewGUI(int id, MovieDBService service, javax.swing.JFrame parent) {
         super(parent, true);
-        
+
         this.id = id;
         this.service = service;
         initComponents();
     }
-    
-    public NewReviewGUI(int id, javax.swing.JDialog parent) {
+
+    public NewReviewGUI(int id, MovieDBService service, javax.swing.JDialog parent) {
         super(parent, true);
-        
+
         this.id = id;
-        this.service = new MovieDBService();
+        this.service = service;
         initComponents();
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -123,27 +119,28 @@ public class NewReviewGUI extends javax.swing.JDialog {
 
     private void btnSafe(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSafe
         String textRating = txtRating.getText();
-        String textUsername= txtUsername.getText();
-        if (textRating.isEmpty())
-        {
+        String textUsername = txtUsername.getText();
+        if (textRating.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a numeric value");
+            return;
         }
-        if ((!textRating.matches("[0-5]+") && textRating.length() > 2))
-        {
-            JOptionPane.showMessageDialog(this,"Please enter a numeric value");
+        if ((!textRating.matches("[0-5]+") && textRating.length() > 2)) {
+            JOptionPane.showMessageDialog(this, "Please enter a numeric value");
+            return;
         }
-        if (textUsername.isEmpty())
-        {
+        if (textUsername.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please type a Username");
+            return;
         }
-       Review r = new Review(Integer.parseInt(txtRating.getText()), txtUsername.getText());
-       service.addReview(r, id);
-       JOptionPane.showMessageDialog(this, "Review safed");
-       dispose();
+
+        Review r = new Review(Integer.parseInt(txtRating.getText()), txtUsername.getText());
+        service.addReview(r, id);
+        JOptionPane.showMessageDialog(this, "Review safed");
+        this.dispose();
     }//GEN-LAST:event_btnSafe
 
     private void btnCancle(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancle
-       dispose();
+        dispose();
     }//GEN-LAST:event_btnCancle
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

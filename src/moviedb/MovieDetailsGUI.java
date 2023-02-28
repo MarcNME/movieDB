@@ -36,6 +36,7 @@ public class MovieDetailsGUI extends javax.swing.JDialog {
     }
 
     private void refresh() {
+        service.refresh();
         m = service.getMoviesByID(id);
 
         txfTitle.setText(m.getTitle());
@@ -224,8 +225,10 @@ public class MovieDetailsGUI extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddReviewActionPerformed
-        NewReviewGUI frame = new NewReviewGUI(id, this);
+        NewReviewGUI frame = new NewReviewGUI(id, service, this);
         frame.setVisible(true);
+        
+        refresh();
     }//GEN-LAST:event_btnAddReviewActionPerformed
 
     private void btnSafeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSafeActionPerformed
