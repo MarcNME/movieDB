@@ -22,7 +22,6 @@ public final class Gui extends javax.swing.JFrame {
     private javax.swing.JButton btnShowDetails;
     private javax.swing.JButton btnTest;
     private javax.swing.JButton jButton1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblMovies;
     // End of variables declaration//GEN-END:variables
@@ -124,7 +123,6 @@ public final class Gui extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
         btnNewMovie = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -156,7 +154,7 @@ public final class Gui extends javax.swing.JFrame {
             }
         });
 
-        btnDelete.setText("Datensatz löschen");
+        btnDelete.setText("Delete record");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
@@ -184,6 +182,9 @@ public final class Gui extends javax.swing.JFrame {
         });
 
         btnNewReview.setText("New Review");
+        btnNewReview.setMaximumSize(new java.awt.Dimension(105, 25));
+        btnNewReview.setMinimumSize(new java.awt.Dimension(105, 25));
+        btnNewReview.setPreferredSize(new java.awt.Dimension(105, 25));
         btnNewReview.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNewReviewActionPerformed(evt);
@@ -238,6 +239,8 @@ public final class Gui extends javax.swing.JFrame {
                             .addComponent(btnTest))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
+
+        btnNewReview.getAccessibleContext().setAccessibleParent(this);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

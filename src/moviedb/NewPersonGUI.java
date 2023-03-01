@@ -46,18 +46,18 @@ public class NewPersonGUI extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        name.setText("Vor- und Nachname");
+        name.setText("First- and Lastname");
 
-        birthday.setText("Geburtstag");
+        birthday.setText("Birthdate");
 
-        btnSafe.setText("Speichern");
+        btnSafe.setText("Safe");
         btnSafe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSafe(evt);
             }
         });
 
-        btnCancle.setText("Abbrechen");
+        btnCancle.setText("Cancel");
         btnCancle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancle(evt);

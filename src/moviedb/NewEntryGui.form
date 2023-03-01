@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
@@ -28,7 +28,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblStudio" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="lblDescription" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="boxPerson" alignment="0" max="32767" attributes="0"/>
@@ -39,7 +39,7 @@
                                       <Component id="lblTitle" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
                                       <Component id="lblDirector" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="50" max="32767" attributes="0"/>
                               </Group>
                               <Component id="txtImagePath" alignment="0" max="32767" attributes="0"/>
                           </Group>
@@ -48,20 +48,21 @@
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="btnSafe" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="68" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="txtDescription" alignment="0" max="32767" attributes="0"/>
-                              <Component id="boxStudio" alignment="0" pref="125" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnNewStudio" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="txtDescription" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <Component id="btnNewStudio" min="-2" pref="107" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="boxStudio" min="-2" pref="125" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="63" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -107,7 +108,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="lblImagePath">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Bildpfad"/>
+        <Property name="text" type="java.lang.String" value="Image path"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtImagePath">
@@ -117,14 +118,14 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblTitle">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Titel"/>
+        <Property name="text" type="java.lang.String" value="Title"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtTitle">
     </Component>
     <Component class="javax.swing.JLabel" name="lblDirector">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Regisseur"/>
+        <Property name="text" type="java.lang.String" value="Director"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblStudio">
@@ -134,14 +135,14 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblDescription">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Beschreibung"/>
+        <Property name="text" type="java.lang.String" value="Description"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDescription">
     </Component>
     <Component class="javax.swing.JButton" name="btnSafe">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Speichern"/>
+        <Property name="text" type="java.lang.String" value="Safe"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSafeActionPerformed"/>
@@ -149,7 +150,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnCancel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Abbrechen"/>
+        <Property name="text" type="java.lang.String" value="Cancel"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelActionPerformed"/>
@@ -170,7 +171,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnNewPerson">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Neue Person"/>
+        <Property name="text" type="java.lang.String" value="New Person"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNewPersonActionPerformed"/>
@@ -191,7 +192,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnNewStudio">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Neues Studio"/>
+        <Property name="text" type="java.lang.String" value="New Studio"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNewStudioActionPerformed"/>

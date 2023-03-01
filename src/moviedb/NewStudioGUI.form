@@ -70,7 +70,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnSafe">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Speichern"/>
+        <Property name="text" type="java.lang.String" value="Safe"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSafeActionPerformed"/>
@@ -78,7 +78,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnCancle">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Abbrechen"/>
+        <Property name="text" type="java.lang.String" value="Cancel"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancleActionPerformed"/>
