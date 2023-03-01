@@ -7,17 +7,20 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import java.text.NumberFormat;
+import moviedb.models.Movie;
+import moviedb.sqlService.DbAdapter;
 
 public final class Gui extends javax.swing.JFrame {
 
     private final MovieDBService service;
     private final DefaultTableModel tableModel;
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnNewMovie;
     private javax.swing.JButton btnNewReview;
     private javax.swing.JButton btnShowDetails;
+    private javax.swing.JButton btnTest;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblMovies;
@@ -34,6 +37,7 @@ public final class Gui extends javax.swing.JFrame {
 
         refresh();
     }
+
     public static void main(String[] args) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -47,8 +51,8 @@ public final class Gui extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException | UnsupportedLookAndFeelException | IllegalAccessException |
-                 InstantiationException ex) {
+        } catch (ClassNotFoundException | UnsupportedLookAndFeelException | IllegalAccessException
+                | InstantiationException ex) {
             java.util.logging.Logger.getLogger(Gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -76,10 +80,10 @@ public final class Gui extends javax.swing.JFrame {
             }
 
             Object[] objs = {movie.getId(),
-                    movie.getTitle(),
-                    directorName,
-                    service.getStudioByID(movie.getStudioID()).getName(),
-                    String.format("%.1f", movie.getAverageRating())};
+                movie.getTitle(),
+                directorName,
+                service.getStudioByID(movie.getStudioID()).getName(),
+                String.format("%.1f", movie.getAverageRating())};
             tableModel.addRow(objs);
         });
     }
@@ -125,13 +129,25 @@ public final class Gui extends javax.swing.JFrame {
         tblMovies = new javax.swing.JTable();
         btnShowDetails = new javax.swing.JButton();
         btnNewReview = new javax.swing.JButton();
+        btnTest = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Movie DB");
 
-        btnNewMovie.setText("New record");
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 103, Short.MAX_VALUE)
+        );
+
+        btnNewMovie.setText("Neuer Datensatz");
         btnNewMovie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNewMovieActionPerformed(evt);
@@ -175,6 +191,13 @@ public final class Gui extends javax.swing.JFrame {
             }
         });
 
+        btnTest.setText("Run Tests");
+        btnTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTestActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -184,9 +207,13 @@ public final class Gui extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnShowDetails)
-                        .addGap(17, 17, 17)
-                        .addComponent(btnNewReview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(141, 141, 141)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnNewReview)
+                        .addGap(359, 359, 359)
+                        .addComponent(btnTest)
+                        .addGap(18, 18, 18)
                         .addComponent(btnDelete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnNewMovie))
@@ -198,14 +225,19 @@ public final class Gui extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnDelete)
-                        .addComponent(btnNewMovie)
-                        .addComponent(btnShowDetails))
-                    .addComponent(btnNewReview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnDelete)
+                            .addComponent(btnNewMovie)
+                            .addComponent(btnShowDetails)
+                            .addComponent(btnNewReview)
+                            .addComponent(btnTest))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         btnNewReview.getAccessibleContext().setAccessibleParent(this);
@@ -216,7 +248,7 @@ public final class Gui extends javax.swing.JFrame {
     private void btnNewMovieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewMovieActionPerformed
         NewEntryGui frame = new NewEntryGui(service, this);
         frame.setVisible(true);
-        
+
         refresh(); //Refresh after Dialog is finished
     }//GEN-LAST:event_btnNewMovieActionPerformed
 
@@ -243,7 +275,7 @@ public final class Gui extends javax.swing.JFrame {
         int id = (int) tableModel.getValueAt(selectedRow, 0);
         MovieDetailsGUI frame = new MovieDetailsGUI(id, service, this);
         frame.setVisible(true);
-        
+
         refresh(); //Refresh after Dialog is finished
     }//GEN-LAST:event_btnShowDetailsActionPerformed
 
@@ -260,4 +292,28 @@ public final class Gui extends javax.swing.JFrame {
 
         refresh(); //Refresh after Dialog is finished
     }//GEN-LAST:event_btnNewReviewActionPerformed
+
+    private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
+        DbAdapter adapter = new DbAdapter();
+        adapter.testConnection();
+        System.out.println("Connection successfull");
+
+        System.out.println("Adding Test Movie");
+        Movie movie = new Movie("Test", 0, "test", "test");
+        adapter.addMovie(movie);
+
+        System.out.println("Getting Test Movie Id");
+        int id = adapter.getMovieID(movie);
+        
+        if(id <= 0){
+            JOptionPane.showMessageDialog(this, "Error getting Id");
+            return;
+        }
+
+        System.out.println("Delete Test Movie");
+        adapter.deleteMovie(id);
+
+        System.out.println("Finished Tests");
+        JOptionPane.showMessageDialog(this, "All tests run successfull");
+    }//GEN-LAST:event_btnTestActionPerformed
 }
