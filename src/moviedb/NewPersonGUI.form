@@ -69,17 +69,17 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="name">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Vor- und Nachname"/>
+        <Property name="text" type="java.lang.String" value="First- and Lastname"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="birthday">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Geburtstag"/>
+        <Property name="text" type="java.lang.String" value="Birthdate"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnSafe">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Speichern"/>
+        <Property name="text" type="java.lang.String" value="Safe"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSafe"/>
@@ -87,7 +87,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnCancle">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Abbrechen"/>
+        <Property name="text" type="java.lang.String" value="Cancel"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancle"/>

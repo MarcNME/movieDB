@@ -44,14 +44,14 @@ public class NewStudioGUI extends javax.swing.JDialog {
         lblStudio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblStudio.setText("Name");
 
-        btnSafe.setText("Speichern");
+        btnSafe.setText("Safe");
         btnSafe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSafeActionPerformed(evt);
             }
         });
 
-        btnCancle.setText("Abbrechen");
+        btnCancle.setText("Cancel");
         btnCancle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancleActionPerformed(evt);
