@@ -19,22 +19,21 @@ public final class Gui extends javax.swing.JFrame {
     private javax.swing.JButton btnNewReview;
     private javax.swing.JButton btnShowDetails;
     private javax.swing.JButton jButton1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblMovies;
+    // End of variables declaration//GEN-END:variables
+
     public Gui() {
         initComponents();
 
         service = new MovieDBService();
-        String[] col = {"ID", "Title", "Director", "Studio", "Rating"};
+        String[] col = {"ID", "Title", "Regisseur", "Studio", "Rating"};
         tableModel = new DefaultTableModel(col, 0);
         tblMovies.setModel(tableModel);
         setTableProperties();
 
         refresh();
     }
-    // End of variables declaration//GEN-END:variables
-
     public static void main(String[] args) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -120,42 +119,17 @@ public final class Gui extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        btnNewReview = new javax.swing.JButton();
         btnNewMovie = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMovies = new javax.swing.JTable();
         btnShowDetails = new javax.swing.JButton();
+        btnNewReview = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Movie DB");
-
-        btnNewReview.setText("New Review");
-        btnNewReview.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNewReviewActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnNewReview)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(btnNewReview)
-                .addContainerGap(53, Short.MAX_VALUE))
-        );
 
         btnNewMovie.setText("New record");
         btnNewMovie.addActionListener(new java.awt.event.ActionListener() {
@@ -191,6 +165,16 @@ public final class Gui extends javax.swing.JFrame {
             }
         });
 
+        btnNewReview.setText("New Review");
+        btnNewReview.setMaximumSize(new java.awt.Dimension(105, 25));
+        btnNewReview.setMinimumSize(new java.awt.Dimension(105, 25));
+        btnNewReview.setPreferredSize(new java.awt.Dimension(105, 25));
+        btnNewReview.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewReviewActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -200,9 +184,9 @@ public final class Gui extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnShowDetails)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(630, 630, 630)
+                        .addGap(17, 17, 17)
+                        .addComponent(btnNewReview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(141, 141, 141)
                         .addComponent(btnDelete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnNewMovie))
@@ -214,18 +198,17 @@ public final class Gui extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnDelete)
-                            .addComponent(btnNewMovie)
-                            .addComponent(btnShowDetails))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnDelete)
+                        .addComponent(btnNewMovie)
+                        .addComponent(btnShowDetails))
+                    .addComponent(btnNewReview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5))
         );
+
+        btnNewReview.getAccessibleContext().setAccessibleParent(this);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -274,7 +257,7 @@ public final class Gui extends javax.swing.JFrame {
         int id = (int) tableModel.getValueAt(selectedRow, 0);
         NewReviewGUI frame = new NewReviewGUI(id, service, this);
         frame.setVisible(true);
-        
+
         refresh(); //Refresh after Dialog is finished
     }//GEN-LAST:event_btnNewReviewActionPerformed
 }
